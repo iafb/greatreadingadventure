@@ -109,7 +109,7 @@ namespace GRA.Controllers
 
             var systemList = await _siteService.GetSystemList();
             var programList = await _siteService.GetProgramList();
-            var programViewObject = _mapper.Map<List<ProgramViewModel>>(programList);
+            var programViewObject = _mapper.Map<List<ProgramSettingsViewModel>>(programList);
             var districtList = await _schoolService.GetDistrictsAsync(true);
 
             SinglePageViewModel viewModel = new SinglePageViewModel()
@@ -252,7 +252,7 @@ namespace GRA.Controllers
             }
             var systemList = await _siteService.GetSystemList();
             var programList = await _siteService.GetProgramList();
-            var programViewObject = _mapper.Map<List<ProgramViewModel>>(programList);
+            var programViewObject = _mapper.Map<List<ProgramSettingsViewModel>>(programList);
             model.SystemList = new SelectList(systemList.ToList(), "Id", "Name");
             model.ProgramList = new SelectList(programList.ToList(), "Id", "Name");
             model.ProgramJson = Newtonsoft.Json.JsonConvert.SerializeObject(programViewObject);
@@ -461,7 +461,7 @@ namespace GRA.Controllers
             }
             var systemList = await _siteService.GetSystemList();
             var programList = await _siteService.GetProgramList();
-            var programViewObject = _mapper.Map<List<ProgramViewModel>>(programList);
+            var programViewObject = _mapper.Map<List<ProgramSettingsViewModel>>(programList);
             model.SystemList = new SelectList(systemList.ToList(), "Id", "Name");
             model.ProgramList = new SelectList(programList.ToList(), "Id", "Name");
             model.ProgramJson = Newtonsoft.Json.JsonConvert.SerializeObject(programViewObject);
@@ -683,7 +683,7 @@ namespace GRA.Controllers
             PageTitle = $"{site.Name} - Join Now!";
 
             var programList = await _siteService.GetProgramList();
-            var programViewObject = _mapper.Map<List<ProgramViewModel>>(programList);
+            var programViewObject = _mapper.Map<List<ProgramSettingsViewModel>>(programList);
             var districtList = await _schoolService.GetDistrictsAsync(true);
 
             Step2ViewModel viewModel = new Step2ViewModel()
@@ -774,7 +774,7 @@ namespace GRA.Controllers
             PageTitle = $"{site.Name} - Join Now!";
 
             var programList = await _siteService.GetProgramList();
-            var programViewObject = _mapper.Map<List<ProgramViewModel>>(programList);
+            var programViewObject = _mapper.Map<List<ProgramSettingsViewModel>>(programList);
             model.ProgramList = new SelectList(programList.ToList(), "Id", "Name");
             model.ProgramJson = Newtonsoft.Json.JsonConvert.SerializeObject(programViewObject);
             if (model.ProgramId.HasValue)
@@ -853,7 +853,7 @@ namespace GRA.Controllers
             PageTitle = $"{site.Name} - Join Now!";
 
             var programList = await _siteService.GetProgramList();
-            var programViewObject = _mapper.Map<List<ProgramViewModel>>(programList);
+            var programViewObject = _mapper.Map<List<ProgramSettingsViewModel>>(programList);
             model.ProgramList = new SelectList(programList.ToList(), "Id", "Name");
             model.ProgramJson = Newtonsoft.Json.JsonConvert.SerializeObject(programViewObject);
             model.ShowAge = askAge;
