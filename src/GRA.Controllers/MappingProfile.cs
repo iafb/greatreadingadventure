@@ -21,16 +21,26 @@ namespace GRA.Controllers
             CreateMap<ParticipantsAddViewModel, User>().ReverseMap();
             CreateMap<TaskDetailViewModel, ChallengeTask>().ReverseMap();
             CreateMap<AvatarLayer, AvatarJsonModel.AvatarLayer>()
-                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.AvatarItems.Select(_ => _.Id)))
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.AvatarItems
+                    .Select(_ => new AvatarJsonModel.AvatarItem
+                    {
+                        Id = _.Id,
+                        DateCreated = _.CreatedAt.ToString("yyyyMMdd")
+                    })))
                 .ForMember(dest => dest.Colors, opt => opt.MapFrom(src => src.AvatarColors
-                .Select(_ => new AvatarJsonModel.AvatarColor
-                {
-                    Id = _.Id,
-                    Value = _.Color
-                })))
+                    .Select(_ => new AvatarJsonModel.AvatarColor
+                    {
+                        Id = _.Id,
+                        Value = _.Color
+                    })))
                 .ReverseMap();
             CreateMap<AvatarBundle, AvatarBundleJsonModel.AvatarBundle>()
-                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.AvatarItems.Select(_ => _.Id)))
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.AvatarItems
+                    .Select(_ => new AvatarBundleJsonModel.AvatarItem
+                    {
+                        Id = _.Id,
+                        DateCreated = _.CreatedAt.ToString("yyyyMMdd")
+                    })))
                 .ReverseMap();
             CreateMap<SiteDetailViewModel, Site>().ReverseMap();
             CreateMap<SiteConfigurationViewModel, Site>().ReverseMap();

@@ -12,8 +12,14 @@ namespace GRA.Controllers.ViewModel.Avatar
         {
             public int Id { get; set; }
 
-            public ICollection<int> Items { get; set; }
+            public ICollection<AvatarItem> Items { get; set; }
             public ICollection<AvatarColor> Colors { get; set; }
+        }
+
+        public class AvatarItem
+        {
+            public int Id { get; set; }
+            public string DateCreated { get; set; }
         }
 
         public class AvatarColor

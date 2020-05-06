@@ -79,7 +79,7 @@ namespace GRA.Domain.Service
                 {
                     layer.AvatarItems = await _avatarItemRepository
                                .GetUserItemsByLayerAsync(activeUserId, layer.Id);
-                    layer.Icon = _pathResolver.ResolveContentPath(layer.Icon);
+                    layer.Icon = $"{_pathResolver.ResolveContentPath(layer.Icon)}?{layer.CreatedAt.ToString("yyyyMMdd")}";
 
                     if (userAvatar.Count > 0)
                     {
@@ -89,7 +89,7 @@ namespace GRA.Domain.Service
                         {
                             layer.SelectedItem = layerSelection.AvatarItemId;
                             layer.SelectedColor = layerSelection.AvatarColorId;
-                            layer.FilePath = _pathResolver.ResolveContentPath(layerSelection.Filename);
+                            layer.FilePath = $"{_pathResolver.ResolveContentPath(layerSelection.Filename)}?{layerSelection.AvatarItem.CreatedAt.ToString("yyyyMMdd")}";
                         }
                         else if (layer.AvatarColors.Count > 0)
                         {
@@ -105,30 +105,29 @@ namespace GRA.Domain.Service
                                 .ElementAt(new Random().Next(0, layer.AvatarColors.Count)).Id;
                         }
 
+                        AvatarItem layerSelection = null;
                         if (bundleItems.Count > 0)
                         {
-                            var layerSelection = bundleItems.SingleOrDefault(_ =>
+                            layerSelection = bundleItems.SingleOrDefault(_ =>
                                 _.AvatarLayerId == layer.Id);
-                            if (layerSelection != null)
-                            {
-                                layer.SelectedItem = layerSelection.Id;
-                            }
                         }
 
-                        if (!layer.SelectedItem.HasValue && !layer.CanBeEmpty)
+                        if (layerSelection == null && !layer.CanBeEmpty)
                         {
                             layer.SelectedItem = layer.AvatarItems.First().Id;
                         }
 
-                        if (layer.SelectedItem.HasValue)
+                        if (layerSelection != null)
                         {
+                            layer.SelectedItem = layerSelection.Id;
+
                             var fileName = "item";
                             if (layer.SelectedColor.HasValue)
                             {
                                 fileName += $"_{layer.SelectedColor}";
                             }
-                            fileName += ".png";
-                            layer.FilePath = Path.Combine(filePath, $"layer{layer.Id}", $"item{layer.SelectedItem}", fileName);
+                            fileName += $".png?{layerSelection.CreatedAt.ToString("yyyyMMdd")}";
+                            layer.FilePath = Path.Combine(filePath, $"layer{layer.Id}", $"item{layerSelection.Id}", fileName);
                         }
                     }
                 }
