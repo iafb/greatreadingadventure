@@ -1,110 +1,111 @@
 ﻿@model GRA.Controllers.ViewModel.Join.Step2ViewModel
 
 <form asp-controller="Join" asp-action="Step2" method="post" role="form" novalidate>
-    <div class="row">
-        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <span class="lead">@ViewData[ViewDataKey.Title]</span>
-                </div>
-                <div class="card-body">
+	<div class="row">
+		<div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+			<div class="card">
+				<h1 class="card-header h4">
+					@ViewData[ViewDataKey.Title]
+				</h1>
+				<div class="card-body">
 
-                    @await Html.PartialAsync("_MultiStepPartial")
+					@await Html.PartialAsync("_MultiStepPartial")
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label asp-for="ProgramId" class="col-form-label"></label>
-                            <select asp-for="ProgramId"
-                                    asp-items="Model.ProgramList"
-                                    autofocus
-                                    class="form-select">
-                                <option></option>
-                            </select>
-                            <span asp-validation-for="ProgramId" class="text-danger"></span>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<label asp-for="ProgramId" class="col-form-label"></label>
+							<select asp-for="ProgramId"
+									asp-items="Model.ProgramList"
+									autofocus
+									class="form-select"
+									autocomplete="off">
+								<option></option>
+							</select>
+							<span asp-validation-for="ProgramId" class="text-danger"></span>
+						</div>
+					</div>
 
-                    <div id="ageField" class="row mb-3 @(Model.ShowAge ? "": "d-none")">
-                        <div class="col-12">
-                            <label asp-for="Age" class="col-form-label"></label>
-                            <input asp-for="Age" class="form-control" type="text" />
-                            <span id="ageMessage"
-                                  asp-validation-for="Age"
-                                  class="text-danger"></span>
-                        </div>
-                    </div>
+					<div id="ageField" class="row mb-3 @(Model.ShowAge ? "" : "d-none")">
+						<div class="col-12">
+							<label asp-for="Age" class="col-form-label"></label>
+							<input asp-for="Age" class="form-control" type="text" autocomplete="off" />
+							<span id="ageMessage"
+								  asp-validation-for="Age"
+								  class="text-danger"></span>
+						</div>
+					</div>
 
-                    <div id="schoolFields" class="@(Model.ShowSchool ? "": "d-none")">
-                        @await Html.PartialAsync("_SchoolSelectionPartial", Model)
-                    </div>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <button type="submit"
-                            class="btn btn-outline-primary btn-lg"
-                            button-spinner>
-                        @SharedLocalizer[GRA.Domain.Model.DisplayNames.FinalStep]
-                        <span class="fas fa-arrow-right"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+					<div id="schoolFields" class="@(Model.ShowSchool ? "" : "d-none")">
+						@await Html.PartialAsync("_SchoolSelectionPartial", Model)
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end bg-white">
+					<button type="submit"
+							class="btn btn-outline-primary btn-lg"
+							button-spinner>
+						@SharedLocalizer[GRA.Domain.Model.DisplayNames.FinalStep]
+						<span class="fas fa-arrow-right" aria-hidden="true"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 @section scripts {
-    <script>
-        var programs = JSON.parse('@Html.Raw(Model.ProgramJson)');
-        var selectedProgram = $.grep(programs, function (obj) {
-            return obj.Id == $("#ProgramId").val();
-        })[0];
+	<script>
+		var programs = JSON.parse('@Html.Raw(Model.ProgramJson)');
+		var selectedProgram = $.grep(programs, function (obj) {
+			return obj.Id == $("#ProgramId").val();
+		})[0];
 
-        $("#ProgramId").on("change", function () {
-            var programId = $(this).val();
-            selectedProgram = $.grep(programs, function (obj) {
-                return obj.Id == programId;
-            })[0];
-            if (selectedProgram != null) {
-                if (selectedProgram.AskAge) {
-                    $("#ageField").removeClass("d-none");
-                    validateAge();
-                }
-                else {
-                    $("#ageField").addClass("d-none");
-                }
+		$("#ProgramId").on("change", function () {
+			var programId = $(this).val();
+			selectedProgram = $.grep(programs, function (obj) {
+				return obj.Id == programId;
+			})[0];
+			if (selectedProgram != null) {
+				if (selectedProgram.AskAge) {
+					$("#ageField").removeClass("d-none");
+					validateAge();
+				}
+				else {
+					$("#ageField").addClass("d-none");
+				}
 
-                if (selectedProgram.AskSchool) {
-                    $("#schoolFields").removeClass("d-none");
-                }
-                else {
-                    $("#schoolFields").addClass("d-none");
-                }
-            }
-        });
+				if (selectedProgram.AskSchool) {
+					$("#schoolFields").removeClass("d-none");
+				}
+				else {
+					$("#schoolFields").addClass("d-none");
+				}
+			}
+		});
 
-        $("#Age").on("change", function () {
-            validateAge();
-        });
+		$("#Age").on("change", function () {
+			validateAge();
+		});
 
-        function validateAge() {
-            var age = $("#Age").val();
-            var message = $("#ageMessage");
-            if (age != "" && ((age > selectedProgram.AgeMaximum && selectedProgram.AgeMaximum != null)
-                || (age < selectedProgram.AgeMinimum && selectedProgram.AgeMinimum != null))) {
-                var program = $.grep(programs, function (obj) {
-                    return ((obj.AgeMaximum >= age || obj.AgeMaximum == null)
-                        && (obj.AgeMinimum <= age || obj.AgeMinimum == null));
-                })[0];
-                if (program != null) {
-                    message.removeClass('field-validation-valid field-validation-error text-danger');
-                    message.addClass('text-primary');
-                    $("#Age").removeClass("input-validation-error")
-                    message.html("@SharedLocalizer[GRA.Annotations.Info.BetterSuitedOption] " + program.Name)
-                }
-            }
-            else {
-                message.text("");
-            }
-        }
-    </script>
-    @await Html.PartialAsync("_SchoolSelectionScripts", Model)
+		function validateAge() {
+			var age = $("#Age").val();
+			var message = $("#ageMessage");
+			if (age != "" && ((age > selectedProgram.AgeMaximum && selectedProgram.AgeMaximum != null)
+				|| (age < selectedProgram.AgeMinimum && selectedProgram.AgeMinimum != null))) {
+				var program = $.grep(programs, function (obj) {
+					return ((obj.AgeMaximum >= age || obj.AgeMaximum == null)
+						&& (obj.AgeMinimum <= age || obj.AgeMinimum == null));
+				})[0];
+				if (program != null) {
+					message.removeClass('field-validation-valid field-validation-error text-danger');
+					message.addClass('text-primary');
+					$("#Age").removeClass("input-validation-error")
+					message.html("@SharedLocalizer[GRA.Annotations.Info.BetterSuitedOption] " + program.Name)
+				}
+			}
+			else {
+				message.text("");
+			}
+		}
+	</script>
+	@await Html.PartialAsync("_SchoolSelectionScripts", Model)
 }

@@ -1,31 +1,31 @@
 ﻿@model GRA.Controllers.ViewModel.Join.AuthorizationCodeViewModel
 
 <form asp-action="AuthorizationCode" method="post">
-    <div class="row">
-        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <span class="lead"><grasite property="name"></grasite> - Authorization</span>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3 mb-3-lg">
-                        <label asp-for="AuthorizationCode" class="h4"></label>
-                        <input asp-for="AuthorizationCode"
-                               class="form-control form-control-lg"
-                               type="password"
-                               autofocus
-                               autocomplete="off"
-                               required>
-                        <span asp-validation-for="AuthorizationCode" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <button class="btn btn-lg btn-outline-primary"
-                            type="submit">
-                        @SharedLocalizer["Validate code"]
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+			<div class="card">
+				<h1 class="card-header h4">
+					<grasite property="name"></grasite> - Authorization
+				</h1>
+				<div class="card-body">
+					<div class="mb-3 mb-3-lg">
+						<label asp-for="AuthorizationCode" class="h4"></label>
+						<input asp-for="AuthorizationCode"
+							   class="form-control form-control-lg"
+							   type="password"
+							   autofocus
+							   autocomplete="off"
+							   required>
+						<span asp-validation-for="AuthorizationCode" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end bg-white">
+					<button class="btn btn-lg btn-outline-primary"
+							type="submit">
+						@SharedLocalizer["Validate code"]
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>

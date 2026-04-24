@@ -8,11 +8,9 @@
 			  role="form">
 
 			<div class="card">
-				<div class="card-header">
-					<span class="fw-bold">
-						@SharedLocalizer[GRA.Domain.Model.DisplayNames.MyProfile]
-					</span>
-				</div>
+				<h1 class="card-header h4">
+					@SharedLocalizer[GRA.Domain.Model.DisplayNames.MyProfile]
+				</h1>
 				<div class="card-body">
 					@await Html.PartialAsync("_ProfilePartial")
 					<div class="row">
@@ -40,7 +38,7 @@
 												</div>
 												<div>
 													@SharedLocalizer[GRA.Annotations.Interface.ChooseAnOption]
-													<button class="btn btn-outline-info"
+													<button class="btn btn-info"
 															asp-action="RedeemCode"
 															button-spinner>
 														<span class="buttonText">
@@ -49,7 +47,7 @@
 													</button>
 													@if (Model.User.CanDonateVendorCode)
 													{
-														<button class="btn btn-outline-success"
+														<button class="btn btn-success"
 																asp-action="DonateCode"
 																button-spinner>
 															<span class="buttonText">
@@ -60,8 +58,8 @@
 													@if (Model.User.CanEmailAwardVendorCode)
 													{
 														<a id="emailAwardButton"
-														   class="btn btn-outline-warning"
-														   asp-action="@nameof(ProfileController.EmailAward)">
+																class="btn btn-danger text-white fw-normal"
+																asp-action="@nameof(ProfileController.EmailAward)">
 															<span class="buttonText">
 																@SharedLocalizer[GRA.Annotations.Interface.ReceiveEAudiobook]
 															</span>
@@ -103,22 +101,25 @@
 										<label asp-for="User.Username"
 											   class="col-form-label"></label>
 										<span class="fas fa-info-circle"
+											  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.Username]]"
+											  data-bs-custom-class="wide-tooltip"
 											  data-bs-toggle="tooltip"
-											  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.Username]]"></span>
-										<input asp-for="User.Username" class="form-control" readonly />
+											  role="tooltip"
+											  tabindex="0"></span>
+										<input asp-for="User.Username" class="form-control" readonly autocomplete="off" />
 									</div>
 								</div>
 							}
 							<div class="row mb-2">
 								<div class="col-12 col-lg-6">
 									<label asp-for="User.FirstName" class="col-form-label"></label>
-									<input asp-for="User.FirstName" class="form-control" />
+									<input asp-for="User.FirstName" class="form-control" autocomplete="given-name" />
 									<span asp-validation-for="User.FirstName"
 										  class="text-danger"></span>
 								</div>
 								<div class="col-12 col-lg-6">
 									<label asp-for="User.LastName" class="col-form-label"></label>
-									<input asp-for="User.LastName" class="form-control" />
+									<input asp-for="User.LastName" class="form-control" autocomplete="family-name" />
 									<span asp-validation-for="User.LastName"
 										  class="text-danger"></span>
 								</div>
@@ -129,7 +130,7 @@
 									<div class="col-12">
 										<label asp-for="User.PostalCode"
 											   class="col-form-label"></label>
-										<input asp-for="User.PostalCode" class="form-control" />
+										<input asp-for="User.PostalCode" class="form-control" autocomplete="postal-code" />
 										<span asp-validation-for="User.PostalCode"
 											  class="text-danger"></span>
 									</div>
@@ -138,7 +139,7 @@
 							<div class="row mb-2">
 								<div class="col-12 col-lg-6">
 									<label asp-for="User.Email" class="col-form-label"></label>
-									<input asp-for="User.Email" class="form-control" type="email" />
+									<input asp-for="User.Email" class="form-control" type="email" autocomplete="email" />
 									<span asp-validation-for="User.Email"
 										  class="text-danger"></span>
 								</div>
@@ -147,7 +148,8 @@
 										   class="col-form-label"></label>
 									<input asp-for="User.PhoneNumber"
 										   class="form-control"
-										   type="tel" />
+										   type="text"
+										   autocomplete="tel-national" />
 									<span asp-validation-for="User.PhoneNumber"
 										  class="text-danger"></span>
 								</div>
@@ -161,26 +163,38 @@
 									{
 										<div class="col-12 col-lg-6">
 											<label asp-for="User.SystemId"
+												   for="SystemName"
 												   class="col-form-label"></label>
 											<span class="fas fa-info-circle"
+												  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.System]]"
+												  data-bs-custom-class="wide-tooltip"
 												  data-bs-toggle="tooltip"
-												  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.System]]"></span>
-											<input class="form-control"
+												  role="tooltip"
+												  tabindex="0"></span>
+											<input id="SystemName"
+												   class="form-control"
 												   readonly
-												   value="@Model.SystemName" />
+												   value="@Model.SystemName"
+												   autocomplete="off" />
 										</div>
 									}
 									@if (Model.SystemList.Count() > 1 || Model.BranchList.Count() > 1)
 									{
 										<div class="col-12 col-lg-6">
 											<label asp-for="User.BranchId"
+												   for="BranchName"
 												   class="col-form-label"></label>
 											<span class="fas fa-info-circle"
+												  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.Branch]]"
+												  data-bs-custom-class="wide-tooltip"
 												  data-bs-toggle="tooltip"
-												  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.Branch]]"></span>
-											<input class="form-control"
+												  role="tooltip"
+												  tabindex="0"></span>
+											<input id="BranchName"
+												   class="form-control"
 												   readonly
-												   value="@Model.BranchName" />
+												   value="@Model.BranchName"
+												   autocomplete="off" />
 										</div>
 									}
 								</div>
@@ -195,7 +209,8 @@
 												   class="col-form-label"></label>
 											<select asp-for="User.SystemId"
 													asp-items="Model.SystemList"
-													class="form-select"></select>
+													class="form-select"
+													autocomplete="off"></select>
 											<span asp-validation-for="User.SystemId"
 												  class="text-danger"></span>
 										</div>
@@ -211,7 +226,8 @@
 												   class="col-form-label"></label>
 											<select asp-for="User.BranchId"
 													asp-items="Model.BranchList"
-													class="form-select"></select>
+													class="form-select"
+													autocomplete="off"></select>
 											<span asp-validation-for="User.BranchId"
 												  class="text-danger"></span>
 										</div>
@@ -230,13 +246,19 @@
 									<div class="row mb-2">
 										<div class="col-12">
 											<label asp-for="User.ProgramId"
+												   for="ProgramName"
 												   class="col-form-label"></label>
 											<span class="fas fa-info-circle"
+												  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.Program]]"
+												  data-bs-custom-class="wide-tooltip"
 												  data-bs-toggle="tooltip"
-												  title="@SharedLocalizer[GRA.Annotations.Interface.NeedToChange, SharedLocalizer[DisplayNames.Program]]"></span>
-											<input class="form-control"
+												  role="tooltip"
+												  tabindex="0"></span>
+											<input id="ProgramName"
+												   class="form-control"
 												   readonly
-												   value="@Model.ProgramName" />
+												   value="@Model.ProgramName"
+												   autocomplete="off" />
 										</div>
 									</div>
 								}
@@ -251,7 +273,8 @@
 												   class="col-form-label"></label>
 											<select asp-for="User.ProgramId"
 													asp-items="Model.ProgramList"
-													class="form-select"></select>
+													class="form-select"
+													autocomplete="off"></select>
 											<span asp-validation-for="User.ProgramId"
 												  class="text-danger"></span>
 										</div>
@@ -265,7 +288,7 @@
 							<div id="ageField" class="row mb-2 @(Model.ShowAge ? "" : "d-none")">
 								<div class="col-12">
 									<label asp-for="User.Age" class="col-form-label"></label>
-									<input asp-for="User.Age" class="form-control" type="text" />
+									<input asp-for="User.Age" class="form-control" type="text" autocomplete="off" />
 									<span id="ageMessage" asp-validation-for="User.Age"
 										  class="text-danger"></span>
 								</div>
@@ -282,7 +305,8 @@
 											@SharedLocalizer[Model.AskEmailSubscriptionText]
 										</label>
 										<select asp-for="User.IsEmailSubscribed"
-												class="form-select">
+												class="form-select"
+												autocomplete="off">
 											<option value="false">
 												@SharedLocalizer[GRA.Annotations.Interface.No]
 											</option>
@@ -319,8 +343,11 @@
 									<div class="col-12">
 										<label asp-for="User.PersonalPointGoal" class="col-form-label"></label>
 										<span class="fas fa-info-circle"
+											  title="@SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalDescription, Model.MinimumPersonalPointGoal]"
+											  data-bs-custom-class="wide-tooltip"
 											  data-bs-toggle="tooltip"
-											  title="@SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalDescription, Model.MinimumPersonalPointGoal]"></span>
+											  role="tooltip"
+											  tabindex="0"></span>
 										<div>
 											@SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalLabel]
 											<input asp-for="User.PersonalPointGoal"
@@ -336,7 +363,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card-footer d-print-none">
+				<div class="card-footer d-print-none bg-white">
 					<div class="my-2 d-flex justify-content-end">
 						<button type="submit"
 								id="Submit"
@@ -389,8 +416,7 @@
 							@SharedLocalizer[GRA.Annotations.Interface.Cancel]
 						</button>
 						<button type="submit"
-								class="btn btn-outline-warning"
-								aria-label="Confirm"
+								class="btn btn-outline-danger"
 								button-spinner>
 							@SharedLocalizer[GRA.Annotations.Interface.Confirm]
 						</button>

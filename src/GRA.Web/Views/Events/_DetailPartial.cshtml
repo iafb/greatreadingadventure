@@ -36,14 +36,14 @@
         <div class="mb-2">
 			<strong>@SharedLocalizer[GRA.Annotations.Interface.MoreInformation]:</strong>
             <a target="_blank" href="@Model.Event.ExternalLink">@Model.Event.Name</a>
-            <a target="_blank" href="@Model.Event.ExternalLink">
+            <a target="_blank" href="@Model.Event.ExternalLink" aria-hidden="true" tabindex="-1">
                 <span class="fas fa-external-link-alt fa-fw"></span>
             </a>
         </div>
     }
 
     <div class="mb-2">
-        <table>
+        <table role="presentation">
             <tr>
                 <td>
                     <strong>
@@ -63,7 +63,7 @@
                                 <a class="btn btn-outline-success"
                                    href="@Url.Action(nameof(EventsController.Stream),
                                         new { id = Model.Event.Id })">
-                                    <span class="far fa-play-circle fa-fw"></span>
+                                    <span class="far fa-play-circle fa-fw" aria-hidden="true"></span>
                                     @SharedLocalizer[GRA.Annotations.Interface.StreamNow]
                                 </a>
                             }
@@ -72,7 +72,7 @@
                                 <a class="btn btn-outline-primary"
                                    href="@Url.Action(nameof(EventsController.Stream),
                                         new { id = Model.Event.Id })">
-                                    <span class="fas fa-sign-in-alt fa-fw"></span>
+                                    <span class="fas fa-sign-in-alt fa-fw" aria-hidden="true"></span>
                                     @SharedLocalizer[GRA.Annotations.Interface.SignInToStream]
                                 </a>
 
@@ -81,7 +81,7 @@
                         else
                         {
                             <button disabled class="btn btn-outline-secondary">
-                                <span class="far fa-stop-circle fa-fw"></span>
+                                <span class="far fa-stop-circle fa-fw" aria-hidden="true"></span>
                                 @(@Model.Event.StartDate >= DateTime.Now
                                     ? SharedLocalizer[GRA.Annotations.Interface.NotStreamingYet]
                                     : SharedLocalizer[GRA.Annotations.Interface.ProgramIsOver])

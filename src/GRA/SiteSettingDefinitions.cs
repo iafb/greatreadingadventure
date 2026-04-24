@@ -15,6 +15,13 @@ namespace GRA
                     Category = typeof(SiteSettingKey.Avatars).Name,
                     Format = SiteSettingFormat.Boolean
                 },
+                [SiteSettingKey.Avatars.ShareImageAltText] = new SiteSettingDefinition
+                {
+                    Name = "Share Image Alt Text",
+                    Info = "Alt text describing the avatar share image.",
+                    Category = typeof(SiteSettingKey.Avatars).Name,
+                    Format = SiteSettingFormat.SegmentId
+                },
                 [SiteSettingKey.Badges.EnableBadgeMaker] = new SiteSettingDefinition
                 {
                     Name = "Enable badgemaker",

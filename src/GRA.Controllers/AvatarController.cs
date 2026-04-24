@@ -23,21 +23,29 @@ namespace GRA.Controllers
     public class AvatarController : Base.UserController
     {
         private readonly AvatarService _avatarService;
+        private readonly LanguageService _languageService;
         private readonly ILogger<AvatarController> _logger;
+        private readonly SegmentService _segmentService;
         private readonly SiteService _siteService;
 
         public AvatarController(ILogger<AvatarController> logger,
             ServiceFacade.Controller context,
             AvatarService avatarService,
+            LanguageService languageService,
+            SegmentService segmentService,
             SiteService siteService)
             : base(context)
         {
             ArgumentNullException.ThrowIfNull(avatarService);
+            ArgumentNullException.ThrowIfNull(languageService);
             ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(segmentService);
             ArgumentNullException.ThrowIfNull(siteService);
 
             _avatarService = avatarService;
+            _languageService = languageService;
             _logger = logger;
+            _segmentService = segmentService;
             _siteService = siteService;
 
             PageTitle = _sharedLocalizer[Annotations.Title.Avatar];
@@ -273,6 +281,20 @@ namespace GRA.Controllers
                     viewModel.FacebookShareUrl = facebookShareUrl;
                     viewModel.TwitterShareUrl = twitterShareUrl;
                 }
+
+                var (isSet, setValue) = await _siteLookupService.GetSiteSettingIntAsync(
+                        site.Id,
+                        SiteSettingKey.Avatars.ShareImageAltText);
+                if (isSet)
+                {
+                    var languageId = await _languageService
+                    .GetLanguageIdAsync(_userContextProvider.GetCurrentCulture()?.Name);
+
+                    viewModel.ShareImageAltText = await _segmentService.GetTextAsync(
+                        setValue, 
+                        languageId);
+                }
+
                 return View(viewModel);
             }
             TempData[TempDataKey.AlertDanger]

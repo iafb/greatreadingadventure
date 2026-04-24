@@ -1,38 +1,38 @@
 ﻿@model GRA.Controllers.ViewModel.Events.StreamViewModel
 
 <div class="row">
-    <div class="col-sm-12">
-        <h1>@Model.EventName</h1>
-    </div>
-</div>
-<div class="row mb-2">
-    <div class="col-12">
-        @Html.Raw(Model.Embed)
-    </div>
-</div>
-@if (Model.EndDate.HasValue)
-{
-    <div class="row mb-2">
-        <div class="col-sm-12 text-center">
-            <em>@SharedLocalizer[GRA.Annotations.Interface.StreamingEnds, Model.EndDate.Value.ToString("d")]</em>
-        </div>
-    </div>
-}
-@if (!string.IsNullOrWhiteSpace(Model.SecretCode))
-{
-    <div class="row mb-2">
-        <div class="col-sm-12 text-center">
-            <strong>@SharedLocalizer[GRA.Domain.Model.DisplayNames.SecretCode]:</strong>
-            @Model.SecretCode
-        </div>
-    </div>
-}
-<div class="row mb-2">
-    <div class="col-sm-12 text-center">
-        <a href="@Url.Action(nameof(EventsController.StreamingEvents))"
-           class="btn btn-outline-primary">
-            <span class="fas fa-calendar-alt fa-fw"></span>
-            @SharedLocalizer[GRA.Annotations.Interface.StreamingEvents]
-        </a>
-    </div>
+	<div class="col-sm-12">
+		<div class="card">
+			<h1 class="card-header h4">@Model.EventName</h1>
+			<div class="card-body">
+				@Html.Raw(Model.Embed)
+				@if (Model.EndDate.HasValue)
+				{
+					<div class="row mb-2">
+						<div class="col-sm-12 text-center">
+							<em>@SharedLocalizer[GRA.Annotations.Interface.StreamingEnds, Model.EndDate.Value.ToString("d")]</em>
+						</div>
+					</div>
+				}
+				@if (!string.IsNullOrWhiteSpace(Model.SecretCode))
+				{
+					<div class="row mb-2">
+						<div class="col-sm-12 text-center">
+							<strong>@SharedLocalizer[GRA.Domain.Model.DisplayNames.SecretCode]:</strong>
+							@Model.SecretCode
+						</div>
+					</div>
+				}
+				<div class="row mb-2">
+					<div class="col-sm-12 text-center">
+						<a href="@Url.Action(nameof(EventsController.StreamingEvents))"
+						   class="btn btn-outline-primary">
+							<span class="fas fa-calendar-alt fa-fw"></span>
+							@SharedLocalizer[GRA.Annotations.Interface.StreamingEvents]
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

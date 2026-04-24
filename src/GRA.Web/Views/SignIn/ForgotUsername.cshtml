@@ -1,33 +1,32 @@
 ﻿<form asp-controller="SignIn" asp-action="ForgotUsername" method="post" role="form">
-    <div class="row">
-        <div class="col-sm-12 col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="h4">
-                        <grasite property="name"></grasite> - 
-                        @SharedLocalizer[GRA.Annotations.Title.UsernameRecovery]
-                        </h1>
-                </div>
-                <div class="card-body">
-                    <div asp-validation-summary="All"></div>
-                    <label class="form-label">
-                        @SharedLocalizer[GRA.Domain.Model.DisplayNames.EmailAddress]
-                        </label>
-                    <input name="email" 
-                        type="email"
-                        class="form-control form-control-lg"
-                        autofocus
-                        autocomplete="email"/>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg me-2">
-                        @SharedLocalizer[GRA.Domain.Model.DisplayNames.ReturnToSignIn]
-                        </a>
-                    <button class="btn btn-outline-primary btn-lg" button-spinner>
-                        @SharedLocalizer[GRA.Domain.Model.DisplayNames.SendRecoveryEmail]
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-sm-12 col-md-8 offset-md-2">
+			<div class="card">
+				<h1 class="card-header h4">
+					<grasite property="name"></grasite> -
+					@SharedLocalizer[GRA.Annotations.Title.UsernameRecovery]
+				</h1>
+				<div class="card-body">
+					<div asp-validation-summary="All"></div>
+					<label for="email" class="form-label">
+						@SharedLocalizer[GRA.Domain.Model.DisplayNames.EmailAddress]
+					</label>
+					<input id="email"
+						   name="email"
+						   type="email"
+						   class="form-control form-control-lg"
+						   autofocus
+						   autocomplete="email" />
+				</div>
+				<div class="card-footer d-flex justify-content-end bg-white">
+					<a asp-action="Index" class="btn btn-outline-secondary btn-lg me-2">
+						@SharedLocalizer[GRA.Domain.Model.DisplayNames.ReturnToSignIn]
+					</a>
+					<button class="btn btn-outline-primary btn-lg" button-spinner>
+						@SharedLocalizer[GRA.Domain.Model.DisplayNames.SendRecoveryEmail]
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>

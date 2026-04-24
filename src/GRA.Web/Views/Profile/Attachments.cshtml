@@ -3,11 +3,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <span class="fw-bold">
-                    @SharedLocalizer[GRA.Domain.Model.DisplayNames.MyProfile]
-                </span>
-            </div>
+            <h1 class="card-header h4">
+                @SharedLocalizer[GRA.Domain.Model.DisplayNames.MyProfile]
+            </h1>
             <div class="card-body">
                 @await Html.PartialAsync("_ProfilePartial")
                 @if (Model.Attachments.Count() == 0)
@@ -60,7 +58,7 @@
             </div>
             @if (Model.MaxPage > 1)
             {
-                <div class="card-footer d-print-none d-flex">
+                <div class="card-footer d-print-none d-flex bg-white">
                     <div class="flex-grow-1">
                         <paginate paginateModel="@Model"></paginate>
                     </div>

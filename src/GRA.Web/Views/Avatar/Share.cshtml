@@ -3,10 +3,13 @@
 <div class="row">
     <div class="col-12 col-xxl-10 offset-xxl-1">
         <div class="card">
+			<h1 class="card-header h4">
+				@SharedLocalizer[GRA.Annotations.Title.ShareYourAvatar]
+			</h1>
             <div class="card-img-top">
-                <img src="@Model.AvatarImageUrl" class="img-fluid" />
+                <img src="@Model.AvatarImageUrl" class="img-fluid" alt="@Model.ShareImageAltText" />
             </div>
-            <div class="card-footer d-flex justify-content-center">
+            <div class="card-footer d-flex justify-content-center bg-white">
                 <div>
                     <a asp-action="@nameof(AvatarController.Index)"
                        class="btn btn-outline-secondary mx-1">

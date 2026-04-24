@@ -7,12 +7,10 @@
     <div class="row">
         <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
             <div class="card">
-                <div class="card-header">
-                    <span class="fw-bold">
-                        @SharedLocalizer[GRA.Annotations.Info.GroupAdd,
-                                 SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
-                    </span>
-                </div>
+                <h1 class="card-header h4">
+                    @SharedLocalizer[GRA.Annotations.Info.GroupAdd,
+						SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
+                </h1>
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-12">
@@ -23,19 +21,19 @@
                     <div class="row mb-2">
                         <div class="col-12">
                             <label asp-for="Username" class="col-form-label"></label>
-                            <input asp-for="Username" class="form-control" autofocus />
+                            <input asp-for="Username" class="form-control" autofocus autocomplete="username" />
                             <span asp-validation-for="Username" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <label asp-for="Password" class="col-form-label"></label>
-                            <input asp-for="Password" type="password" class="form-control" />
+                            <input asp-for="Password" type="password" class="form-control" autocomplete="current-password" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-end">
+                <div class="card-footer d-flex justify-content-end bg-white">
                     <a asp-action="@nameof(ProfileController.Household)"
                        class="btn btn-outline-secondary">
                         @SharedLocalizer[GRA.Annotations.Interface.BackTo,
