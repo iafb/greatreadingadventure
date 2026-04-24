@@ -52,7 +52,7 @@ else if (Model.HasOrderStatus)
 						</div>
 					</div>
 				</div>
-				<div class="card-footer text-center">
+				<div class="card-footer text-center bg-white">
 					@Html.Raw(Model.User.VendorCodeMessage)
 				</div>
 			</div>
@@ -66,7 +66,7 @@ else if (Model.HasOrderStatus)
             <div class="card mb-2">
                 <div class="card-header fw-bold">@SharedLocalizer[GRA.Annotations.Title.Avatar]</div>
                 <div class="card-body text-center py-0">
-                    <a asp-controller="Avatar" asp-action="Index">
+					<a asp-controller="Avatar" asp-action="Index" alt="@SharedLocalizer[GRA.Annotations.Interface.CustomizeYourAvatar]">
                         @if (Model.AvatarElements?.Count > 0)
                         {
                             <div class="avatar-container-dashboard">
@@ -84,6 +84,7 @@ else if (Model.HasOrderStatus)
                             <img src="~/content/no_avatar.png"
                                  class="img img-fluid mx-auto"
                                  style="width:200px;"
+								 alt="@SharedLocalizer[GRA.Annotations.Interface.CustomizeYourAvatar]"
                                  asp-append-version="true" />
                         }
                     </a>
@@ -150,7 +151,7 @@ else if (Model.HasOrderStatus)
 						}
                     </div>
                 </div>
-                <div class="card-footer text-center fw-bold">
+                <div class="card-footer text-center fw-bold bg-white">
                     <a asp-controller="Profile"
                        asp-action="History">@SharedLocalizer["See your activity history."]</a>
                 </div>
@@ -251,7 +252,6 @@ else if (Model.HasOrderStatus)
                                     class="btn mx-auto btn-outline-success btn-lg"
                                     button-spinner>
                                 <span class="buttonText">
-									<span class="buttonText">
 										@if (!string.IsNullOrWhiteSpace(Model.ButtonText))
 										{
 											@Model.ButtonText
@@ -260,7 +260,6 @@ else if (Model.HasOrderStatus)
 										{
 											@SharedLocalizer["I read a book!"]
 										}
-									</span>
 								</span>
                             </button>
                         </form>
@@ -291,16 +290,18 @@ else if (Model.HasOrderStatus)
                             <div class="row mb-2">
                                 <div class="col-12">
                                     <span class="fs-5">@SharedLocalizer[GRA.Annotations.Interface.Optional]</span>
-                                    <span class="fas fa-info-circle fa-sm wide-tooltip"
-                                          title="@SharedLocalizer[GRA.Annotations.Info.DashboardOptionalFields]"
-                                          data-bs-toggle="tooltip"
-                                          data-bs-placement="top"></span>
+									<span class="fa fa-info-circle fa-sm"
+										  title="@SharedLocalizer[GRA.Annotations.Info.DashboardOptionalFields]"
+										  data-bs-custom-class="wide-tooltip"
+										  data-bs-toggle="tooltip"
+										  role="tooltip"
+										  tabindex="0"></span>
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <label asp-for="Title" class="col-form-label col-lg-3"></label>
                                 <div class="col-lg-9">
-                                    <input asp-for="Title" class="form-control" />
+									<input asp-for="Title" class="form-control" autocomplete="off" />
                                     <span asp-validation-for="Title" class="text-danger"></span>
                                 </div>
                             </div>
@@ -308,12 +309,12 @@ else if (Model.HasOrderStatus)
                             <div class="row">
                                 <label asp-for="Author" class="col-form-label col-lg-3"></label>
                                 <div class="col-lg-9">
-                                    <input asp-for="Author" class="form-control" />
+									<input asp-for="Author" class="form-control" autocomplete="off" />
                                     <span asp-validation-for="Author" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-end">
+                        <div class="card-footer d-flex justify-content-end bg-white">
                             <button type="submit"
                                     class="btn btn-outline-primary"
                                     button-spinner>
@@ -349,7 +350,7 @@ else if (Model.HasOrderStatus)
                             </div>
                             <div class="row mb-2">
                                 <div class="col-12">
-                                    <input asp-for="SecretCode" class="form-control" />
+									<input asp-for="SecretCode" class="form-control" autocomplete="off" />
                                 </div>
                                 @if (!string.IsNullOrWhiteSpace(Model.SecretCodeMessage))
                                 {
@@ -359,7 +360,7 @@ else if (Model.HasOrderStatus)
                                 }
                             </div>
                         </div>
-                        <div class="card-footer d-flex justify-content-end">
+                        <div class="card-footer d-flex justify-content-end bg-white">
                             <button type="submit"
                                     class="btn btn-outline-primary"
                                     button-spinner>
@@ -433,7 +434,7 @@ else if (Model.HasOrderStatus)
 						}
 					</div>
 				</div>
-				<div class="card-footer text-center">
+				<div class="card-footer text-center bg-white">
 					@if (display >= 6)
 					{
 						<a asp-controller="Profile"
@@ -462,7 +463,8 @@ else if (Model.HasOrderStatus)
 			<div class="card text-center mb-2">
 				<div class="card-header fw-bold">
 					<a asp-controller="@EventsController.Name"
-					   asp-action="@nameof(EventsController.StreamingEvents)">
+					   asp-action="@nameof(EventsController.StreamingEvents)"
+					   class="link-dark">
 						@SharedLocalizer[GRA.Annotations.Interface.StreamingEvents]
 					</a>
 				</div>

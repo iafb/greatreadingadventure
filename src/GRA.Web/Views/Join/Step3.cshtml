@@ -10,131 +10,133 @@
                 </div>
                 <div class="card-body">
 
-                    @if (TempData.ContainsKey("TwoStepSignUp"))
-                    {
-                        <partial name="_TwoStepPartial" />
-                    }
-                    else
-                    {
-                        <partial name="_MultiStepPartial" />
-                    }
+					@if (TempData.ContainsKey("TwoStepSignUp"))
+					{
+						<partial name="_TwoStepPartial" />
+					}
+					else
+					{
+						<partial name="_MultiStepPartial" />
+					}
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label asp-for="Username" class="col-form-label"></label>
-                            <span id="Username-Icon" class="fas colored-icon d-none"></span>
-                            <input asp-for="Username"
-                                   class="form-control"
-                                   autofocus
-                                   autocomplete="username" />
-                            <span id="Username-Validation"
-                                  asp-validation-for="Username"></span>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<label asp-for="Username" class="col-form-label"></label>
+							<span id="Username-Icon" class="fas colored-icon d-none"></span>
+							<input asp-for="Username"
+								   class="form-control"
+								   autofocus
+								   autocomplete="username" />
+							<span id="Username-Validation"
+								  asp-validation-for="Username"></span>
+						</div>
+					</div>
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label asp-for="Password" class="col-form-label"></label>
-                            <p class="password-note">
-                                @SharedLocalizer[GRA.Annotations.Validate.PasswordRequirement]
-                            </p>
-                            <input asp-for="Password"
-                                   type="password"
-                                   class="form-control"
-                                   autocomplete="new-password" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<label asp-for="Password" class="col-form-label"></label>
+							<p class="password-note">
+								@SharedLocalizer[GRA.Annotations.Validate.PasswordRequirement]
+							</p>
+							<input asp-for="Password"
+								   type="password"
+								   class="form-control"
+								   autocomplete="new-password" />
+							<span asp-validation-for="Password" class="text-danger"></span>
+						</div>
+					</div>
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label asp-for="ConfirmPassword" class="col-form-label"></label>
-                            <input asp-for="ConfirmPassword"
-                                   type="password"
-                                   class="form-control"
-                                   autocomplete="new-password" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<label asp-for="ConfirmPassword" class="col-form-label"></label>
+							<input asp-for="ConfirmPassword"
+								   type="password"
+								   class="form-control"
+								   autocomplete="new-password" />
+							<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+						</div>
+					</div>
 
-                    <hr />
+					<hr />
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <p>
-                                @SharedLocalizer[GRA.Annotations.Validate.EmailPhoneNeededForPrizes]
-                            </p>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<p>
+								@SharedLocalizer[GRA.Annotations.Validate.EmailPhoneNeededForPrizes]
+							</p>
+						</div>
+					</div>
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label asp-for="Email" class="col-form-label"></label>
-                            <input asp-for="Email"
-                                   class="form-control"
-                                   type="email"
-                                   autocomplete="email" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<label asp-for="Email" class="col-form-label"></label>
+							<input asp-for="Email"
+								   class="form-control"
+								   type="email"
+								   autocomplete="email" />
+							<span asp-validation-for="Email" class="text-danger"></span>
+						</div>
+					</div>
 
-                    <div class="row mb-3">
-                        <div class="col-12">
-                            <label asp-for="PhoneNumber" class="col-form-label"></label>
-                            <input asp-for="PhoneNumber"
-                                   class="form-control"
-                                   type="tel"
-                                   autocomplete="tel-national" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                        </div>
-                    </div>
+					<div class="row mb-3">
+						<div class="col-12">
+							<label asp-for="PhoneNumber" class="col-form-label"></label>
+							<input asp-for="PhoneNumber"
+								   class="form-control"
+								   type="text"
+								   autocomplete="tel-national" />
+							<span asp-validation-for="PhoneNumber" class="text-danger"></span>
+						</div>
+					</div>
 
-                    @if (Model?.AskFirstTime?.Count() > 1)
-                    {
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label asp-for="IsFirstTime" class="col-form-label"></label>
-                                <select asp-for="IsFirstTime"
-                                        asp-items="Model.AskFirstTime"
-                                        class="form-select"></select>
-                                <span asp-validation-for="IsFirstTime" class="text-danger"></span>
-                            </div>
-                        </div>
-                    }
+					@if (Model?.AskFirstTime?.Count() > 1)
+					{
+						<div class="row mb-3">
+							<div class="col-12">
+								<label asp-for="IsFirstTime" class="col-form-label"></label>
+								<select asp-for="IsFirstTime"
+										asp-items="Model.AskFirstTime"
+										class="form-select"
+										autocomplete="off"></select>
+								<span asp-validation-for="IsFirstTime" class="text-danger"></span>
+							</div>
+						</div>
+					}
 
-                    @if (Model.AskEmailSubscription?.Count() > 1)
-                    {
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label asp-for="EmailSubscriptionRequested" class="col-form-label">
-                                    @SharedLocalizer[Model.AskEmailSubscriptionText]
-                                </label>
-                                <select asp-for="EmailSubscriptionRequested"
-                                        asp-items="Model.AskEmailSubscription"
-                                        class="form-select"></select>
-                                <span asp-validation-for="EmailSubscriptionRequested"
-                                      class="text-danger"></span>
-                            </div>
-                        </div>
-                    }
+					@if (Model.AskEmailSubscription?.Count() > 1)
+					{
+						<div class="row mb-3">
+							<div class="col-12">
+								<label asp-for="EmailSubscriptionRequested" class="col-form-label">
+									@SharedLocalizer[Model.AskEmailSubscriptionText]
+								</label>
+								<select asp-for="EmailSubscriptionRequested"
+										asp-items="Model.AskEmailSubscription"
+										class="form-select"
+										autocomplete="off"></select>
+								<span asp-validation-for="EmailSubscriptionRequested"
+									  class="text-danger"></span>
+							</div>
+						</div>
+					}
 
-                    @if (!string.IsNullOrWhiteSpace(Model.TranslationDescriptionPastTense))
-                    {
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label asp-for="DailyPersonalGoal" class="col-form-label"></label>
-                                <div>
-                                    @SharedLocalizer["I will {0}", Model.TranslationDescriptionPastTense]
-                                    <input asp-for="DailyPersonalGoal"
-                                           class="form-control"
-                                           style="display:inline-block; width:75px;" />
-                                    @SharedLocalizer["{0} a day", Model.ActivityDescriptionPlural]
-                                </div>
-                                <span asp-validation-for="DailyPersonalGoal"
-                                      class="text-danger"></span>
-                            </div>
-                        </div>
-                    }
+					@if (!string.IsNullOrWhiteSpace(Model.TranslationDescriptionPastTense))
+					{
+						<div class="row mb-3">
+							<div class="col-12">
+								<label asp-for="DailyPersonalGoal" class="col-form-label"></label>
+								<div>
+									@SharedLocalizer["I will {0}", Model.TranslationDescriptionPastTense]
+									<input asp-for="DailyPersonalGoal"
+										   class="form-control"
+										   style="display:inline-block; width:75px;" />
+									@SharedLocalizer["{0} a day", Model.ActivityDescriptionPlural]
+								</div>
+								<span asp-validation-for="DailyPersonalGoal"
+									  class="text-danger"></span>
+							</div>
+						</div>
+					}
 
                     @if (Model.AskPersonalPointGoal)
                     {
@@ -170,40 +172,40 @@
 </form>
 
 @section scripts {
-    <script>
-        const usernameCheckUrl = "@Url.Action(nameof(GRA.Controllers.LookupController.UsernameInUse), LookupController.Name, new { Area = string.Empty })";
-        const usernameIcon = $("#Username-Icon");
-        const usernameField = $("#Username");
-        const usernameValidation = $("#Username-Validation");
+	<script>
+		const usernameCheckUrl = "@Url.Action(nameof(GRA.Controllers.LookupController.UsernameInUse), LookupController.Name, new { Area = string.Empty })";
+		const usernameIcon = $("#Username-Icon");
+		const usernameField = $("#Username");
+		const usernameValidation = $("#Username-Validation");
 
-        usernameField.on("blur", function () {
-            if ($(this).val().trim() != "" && !$(this).hasClass("input-validation-error")) {
-                $(this).val($(this).val().trim());
-                usernameIcon.addClass("fa-spinner fa-spin")
-                    .removeClass("d-none fa-times-circle fa-check-circle text-success text-danger");
-                $.post(usernameCheckUrl, { username: $(this).val() }, function (response) {
-                    if (response) {
-                        $(this).removeClass("valid");
-                        $(this).addClass("input-validation-error");
-                        usernameValidation.removeClass("field-validation-valid text-success")
-                            .addClass("field-validation-error")
-                            .text("Someone has already chosen that username.");
-                        usernameIcon.removeClass("fa-spinner fa-spin")
-                            .addClass("fa-times-circle text-danger");
-                    }
-                    else {
-                        usernameValidation.removeClass("field-validation-valid")
-                            .addClass("text-success")
-                            .text("The chosen username is available.");
-                        usernameIcon.removeClass("fa-spinner fa-spin")
-                            .addClass("fa-check-circle text-success");
-                    }
-                });
-            }
-        });
+		usernameField.on("blur", function () {
+			if ($(this).val().trim() != "" && !$(this).hasClass("input-validation-error")) {
+				$(this).val($(this).val().trim());
+				usernameIcon.addClass("fa-spinner fa-spin")
+					.removeClass("d-none fa-times-circle fa-check-circle text-success text-danger");
+				$.post(usernameCheckUrl, { username: $(this).val() }, function (response) {
+					if (response) {
+						$(this).removeClass("valid");
+						$(this).addClass("input-validation-error");
+						usernameValidation.removeClass("field-validation-valid text-success")
+							.addClass("field-validation-error")
+							.text("Someone has already chosen that username.");
+						usernameIcon.removeClass("fa-spinner fa-spin")
+							.addClass("fa-times-circle text-danger");
+					}
+					else {
+						usernameValidation.removeClass("field-validation-valid")
+							.addClass("text-success")
+							.text("The chosen username is available.");
+						usernameIcon.removeClass("fa-spinner fa-spin")
+							.addClass("fa-check-circle text-success");
+					}
+				});
+			}
+		});
 
-        usernameField.on("keypress", function () {
-            usernameIcon.addClass("d-none");
-        });
-    </script>
+		usernameField.on("keypress", function () {
+			usernameIcon.addClass("d-none");
+		});
+	</script>
 }

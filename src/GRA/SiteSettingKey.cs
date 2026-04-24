@@ -3,6 +3,7 @@
     public static class Avatars
     {
         public static readonly string DisableSharing = "Avatars.DisableSharing";
+        public static readonly string ShareImageAltText = "Avatars.ShareImageAltText";
     }
 
     public static class Badges

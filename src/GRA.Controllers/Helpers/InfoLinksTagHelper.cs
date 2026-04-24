@@ -120,7 +120,14 @@ namespace GRA.Controllers.Helpers
                     divTag.InnerHtml.AppendHtml(outputTag);
                 }
 
-                output.Content.AppendHtml(divTag);
+                if (NavPages)
+                {
+                    output.Content.AppendHtml(divTag.RenderBody());
+                }
+                else
+                {
+                    output.Content.AppendHtml(divTag);
+                }
             }
 
             var siteId = (int)ViewContext

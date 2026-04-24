@@ -43,6 +43,7 @@
         public const string OldPassword = "Old Password";
         public const string Ordering = "Ordering";
         public const string Password = "Password";
+        public const string PerformerRegistration = "Performer Registration";
         public const string PersonalPointGoal = "Set a personal point goal";
         public const string PhoneNumber = "Phone Number";
         public const string Program = "Age Group";

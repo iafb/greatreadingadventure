@@ -1,42 +1,41 @@
 ﻿@{
-    ViewData[GRA.Controllers.ViewDataKey.Title] 
-        = SharedLocalizer[GRA.Annotations.Title.PageNotFound];
-    ViewData["404MailLink"] = Url.Action(nameof(MailController.Send), MailController.Name);
+	ViewData[GRA.Controllers.ViewDataKey.Title]
+		= SharedLocalizer[GRA.Annotations.Title.PageNotFound];
+	ViewData["404MailLink"] = Url.Action(nameof(MailController.Send), MailController.Name);
 }
 
 @section styles {
-    <style>
-        .card-error-message p {
-            margin-bottom: 2rem;
-            line-height: 3rem;
-            font-size: larger;
-        }
-    </style>
+	<style>
+		.card-error-message p {
+			margin-bottom: 2rem;
+			line-height: 3rem;
+			font-size: larger;
+		}
+	</style>
 }
 
 <div class="row">
-    <div class="col-sm-8 offset-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <h1 class="h3 text-warning text-strong" style="margin: 0;">
-                        @SharedLocalizer[GRA.Annotations.Title.PageNotFound]
-                </h1>
-            </div>
-            <div class="card-body card-error-message">
-                <p>
-                    @SharedLocalizer[GRA.Annotations.Info.CouldNotFind]
-                </p>
-                <p>
-                    @SharedHtmlLocalizer[GRA.Annotations.Info.MailForHelp, ViewData["404MailLink"]]
-                </p>
-
-                <a asp-controller="Home"
-                   asp-action="Index"
-                   class="btn btn-lg btn-outline-success float-end">
-                    <span class="fas fa-home"></span>
-                    @SharedLocalizer[GRA.Domain.Model.DisplayNames.Home]
-                </a>
-            </div>
-        </div>
-    </div>
+	<div class="col-sm-8 offset-sm-2">
+		<div class="card">
+			<h1 class="card-header h3 text-danger text-strong">
+				@SharedLocalizer[GRA.Annotations.Title.PageNotFound]
+			</h1>
+			<div class="card-body card-error-message">
+				<p>
+					@SharedLocalizer[GRA.Annotations.Info.CouldNotFind]
+				</p>
+				<p>
+					@SharedHtmlLocalizer[GRA.Annotations.Info.MailForHelp, ViewData["404MailLink"]]
+				</p>
+			</div>
+			<div class="card-footer bg-white">
+				<a asp-controller="Home"
+				   asp-action="Index"
+				   class="btn btn-lg btn-outline-success">
+					<span class="fas fa-home" aria-hidden="true"></span>
+					@SharedLocalizer[GRA.Domain.Model.DisplayNames.Home]
+				</a>
+			</div>
+		</div>
+	</div>
 </div>

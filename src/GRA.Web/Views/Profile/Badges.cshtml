@@ -3,11 +3,9 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <span class="fw-bold">
-                    @SharedLocalizer[GRA.Domain.Model.DisplayNames.MyProfile]
-                </span>
-            </div>
+            <h1 class="card-header h4">
+                @SharedLocalizer[GRA.Domain.Model.DisplayNames.MyProfile]
+            </h1>
             <div class="card-body">
                 @await Html.PartialAsync("_ProfilePartial")
                 @if (Model.UserLogs.Count() == 0)
@@ -41,7 +39,7 @@
             </div>
             @if (Model.PaginateModel.MaxPage > 1)
             {
-                <div class="card-footer d-print-none d-flex justify-content-center">
+                <div class="card-footer d-print-none d-flex justify-content-center bg-white">
                     <paginate paginateModel="@Model.PaginateModel"></paginate>
                 </div>
             }
@@ -57,13 +55,13 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="h4 modal-title">
+				<h1 class="h4 modal-title" id="badgeDetailsModalLabel">
                     @SharedLocalizer[GRA.Annotations.Interface.BadgeDetails]
                 </h1>
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Close">
+                        aria-label="@SharedLocalizer[GRA.Annotations.Interface.CloseDialog]">
                 </button>
             </div>
             <div class="modal-body" id="modal-body">

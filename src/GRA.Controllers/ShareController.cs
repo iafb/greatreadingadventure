@@ -10,14 +10,27 @@ namespace GRA.Controllers
 {
     public class ShareController : Base.UserController
     {
+        private readonly LanguageService _languageService;
         private readonly ILogger<ShareController> _logger;
+        private readonly SegmentService _segmentService;
         private readonly SiteService _siteService;
+
         public ShareController(ILogger<ShareController> logger,
             ServiceFacade.Controller context,
+            LanguageService languageService,
+            SegmentService segmentService,
             SiteService siteService) : base(context)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _siteService = siteService ?? throw new ArgumentNullException(nameof(siteService));
+            ArgumentNullException.ThrowIfNull(languageService);
+            ArgumentNullException.ThrowIfNull(logger);
+            ArgumentNullException.ThrowIfNull(segmentService);
+            ArgumentNullException.ThrowIfNull(siteService);
+
+            _languageService = languageService;
+            _logger = logger;
+            _segmentService = segmentService;
+            _siteService = siteService;
+
             PageTitle = "Share";
         }
 
@@ -48,6 +61,20 @@ namespace GRA.Controllers
                         ImageLink = imageUrl
                     }
                 };
+
+                var (isSet, setValue) = await _siteLookupService.GetSiteSettingIntAsync(
+                        site.Id,
+                        SiteSettingKey.Avatars.ShareImageAltText);
+                if (isSet)
+                {
+                    var languageId = await _languageService
+                    .GetLanguageIdAsync(_userContextProvider.GetCurrentCulture()?.Name);
+
+                    viewModel.ShareImageAltText = await _segmentService.GetTextAsync(
+                        setValue,
+                        languageId);
+                }
+
                 return View(viewModel);
             }
             else

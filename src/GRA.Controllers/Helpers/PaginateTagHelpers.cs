@@ -7,18 +7,23 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Localization;
 
 namespace GRA.Controllers.Helpers
 {
     [HtmlTargetElement("paginate", Attributes = "paginateModel")]
     public class PaginateTagHelper : TagHelper
     {
+        private readonly IStringLocalizer<Resources.Shared> _sharedLocalizer;
         private readonly IUrlHelperFactory _urlHelperFactory;
 
-        public PaginateTagHelper(IUrlHelperFactory urlHelperFactory)
+        public PaginateTagHelper(IStringLocalizer<Resources.Shared> sharedLocalizer,
+            IUrlHelperFactory urlHelperFactory)
         {
+            ArgumentNullException.ThrowIfNull(sharedLocalizer);
             ArgumentNullException.ThrowIfNull(urlHelperFactory);
 
+            _sharedLocalizer = sharedLocalizer;
             _urlHelperFactory = urlHelperFactory;
         }
 
@@ -47,18 +52,19 @@ namespace GRA.Controllers.Helpers
 
             output.TagName = "nav";
             output.Attributes.Add("class", "btn-group");
-            output.Attributes.Add("role", "group");
-            output.Attributes.Add("aria-label", "Pagination");
+            output.Attributes.Add("role", "navigation");
 
             var firstPage = PaginateModel.FirstPage == null
                                ? null
                                : QueryBuilder(url, PaginateModel.FirstPage, AsButtons);
-            output.Content.AppendHtml(PaginatorTag(firstPage, "fast-backward", AsButtons));
+            output.Content.AppendHtml(PaginatorTag(firstPage, "fast-backward", AsButtons,
+                _sharedLocalizer[Annotations.Interface.GoFirstPage]));
 
             var previousPage = PaginateModel.PreviousPage == null
                                   ? null
                                   : QueryBuilder(url, PaginateModel.PreviousPage, AsButtons);
-            output.Content.AppendHtml(PaginatorTag(previousPage, "backward", AsButtons));
+            output.Content.AppendHtml(PaginatorTag(previousPage, "backward", AsButtons,
+                _sharedLocalizer[Annotations.Interface.GoPreviousPage]));
 
             output.Content.AppendHtml(
                 PaginatorText($"{PaginateModel.CurrentPage:n0} / {PaginateModel.MaxPage:n0}",
@@ -68,16 +74,19 @@ namespace GRA.Controllers.Helpers
                               ? null
                               : QueryBuilder(url, PaginateModel.NextPage, AsButtons);
 
-            output.Content.AppendHtml(PaginatorTag(nextPage, "forward", AsButtons));
+            output.Content.AppendHtml(PaginatorTag(nextPage, "forward", AsButtons,
+                _sharedLocalizer[Annotations.Interface.GoNextPage]));
 
             var lastPage = PaginateModel.LastPage == null
                               ? null
                               : QueryBuilder(url, PaginateModel.LastPage, AsButtons);
 
-            output.Content.AppendHtml(PaginatorTag(lastPage, "fast-forward", AsButtons));
+            output.Content.AppendHtml(PaginatorTag(lastPage, "fast-forward", AsButtons,
+                _sharedLocalizer[Annotations.Interface.GoLastPage]));
         }
 
-        private static TagBuilder PaginatorTag(string pageUrl, string glyph, bool asButtons)
+        private static TagBuilder PaginatorTag(string pageUrl, string glyph, bool asButtons,
+            string label)
         {
             var baseTag = asButtons ? new TagBuilder("button") : new TagBuilder("a");
 
@@ -107,6 +116,8 @@ namespace GRA.Controllers.Helpers
                     baseTag.MergeAttribute("href", pageUrl);
                 }
             }
+
+            baseTag.MergeAttribute("aria-label", label);
 
             var spanTag = new TagBuilder("span")
             {

@@ -228,92 +228,92 @@
                         </span>
                     </button>
 
-                </div>
-            </div>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 @section scripts {
-    <script>
-        var programs = JSON.parse('@Html.Raw(Model.ProgramJson)');
-        var selectedProgram = $.grep(programs, function(obj) {
-            return obj.Id == $("#User_ProgramId").val();
-        })[0];
+	<script>
+		var programs = JSON.parse('@Html.Raw(Model.ProgramJson)');
+		var selectedProgram = $.grep(programs, function(obj) {
+			return obj.Id == $("#User_ProgramId").val();
+		})[0];
 
-        $("#User_SystemId").on("change", function() {
-            let systemId = $(this).val();
-            let branchList = $("#User_BranchId");
-            let branchId = branchList.val();
-            let url = "@Url.Action("GetBranches", "Lookup", new { Area = string.Empty })";
+		$("#User_SystemId").on("change", function() {
+			let systemId = $(this).val();
+			let branchList = $("#User_BranchId");
+			let branchId = branchList.val();
+			let url = "@Url.Action("GetBranches", "Lookup", new { Area = string.Empty })";
 
-            $.getJSON(url, { systemId: systemId, branchId: branchId }, function(response) {
-                branchList.empty();
-                if (response.length > 1)
-                {
-                    branchList.append(new Option("", "-1"));
-                }
-                $.each(response, function(index, item) {
-                    branchList.append(new Option(item.text, item.value, item.selected, item.selected))
-                });
-            });
-        });
+			$.getJSON(url, { systemId: systemId, branchId: branchId }, function(response) {
+				branchList.empty();
+				if (response.length > 1)
+				{
+					branchList.append(new Option("", "-1"));
+				}
+				$.each(response, function(index, item) {
+					branchList.append(new Option(item.text, item.value, item.selected, item.selected))
+				});
+			});
+		});
 
-        $("#User_ProgramId").on("change", function() {
-            let programId = $(this).val();
-            selectedProgram = $.grep(programs, function(obj) {
-                return obj.Id == programId;
-            })[0];
-            if (selectedProgram != null)
-            {
-                if (selectedProgram.AskAge)
-                {
-                    $("#ageField").removeClass("d-none");
-                    validateAge();
-                }
-                else
-                {
-                    $("#ageField").addClass("d-none");
-                }
+		$("#User_ProgramId").on("change", function() {
+			let programId = $(this).val();
+			selectedProgram = $.grep(programs, function(obj) {
+				return obj.Id == programId;
+			})[0];
+			if (selectedProgram != null)
+			{
+				if (selectedProgram.AskAge)
+				{
+					$("#ageField").removeClass("d-none");
+					validateAge();
+				}
+				else
+				{
+					$("#ageField").addClass("d-none");
+				}
 
-                if (selectedProgram.AskSchool)
-                {
-                    $("#schoolFields").removeClass("d-none");
-                }
-                else
-                {
-                    $("#schoolFields").addClass("d-none");
-                }
-            }
-        });
+				if (selectedProgram.AskSchool)
+				{
+					$("#schoolFields").removeClass("d-none");
+				}
+				else
+				{
+					$("#schoolFields").addClass("d-none");
+				}
+			}
+		});
 
-        $("#User_Age").on("change", function() {
-            validateAge();
-        });
+		$("#User_Age").on("change", function() {
+			validateAge();
+		});
 
-        function validateAge() {
-            let age = $("#User_Age").val();
-            let message = $("#ageMessage");
-            if (age != "" && ((age > selectedProgram.AgeMaximum && selectedProgram.AgeMaximum != null)
-                || (age < selectedProgram.AgeMinimum && selectedProgram.AgeMinimum != null)))
-            {
-                let program = $.grep(programs, function(obj) {
-                    return ((obj.AgeMaximum >= age || obj.AgeMaximum == null)
-                            && (obj.AgeMinimum <= age || obj.AgeMinimum == null));
-                })[0];
-                if (program != null)
-                {
-                    message.removeClass('field-validation-valid field-validation-error text-danger');
-                    message.addClass('text-primary');
-                    $("#User_Age").removeClass("input-validation-error")
-                    message.text("The program " + program.Name + " may be better suited for your age.")
-                }
-            }
-            else
-            {
-                message.text("");
-            }
-        }
-    </script>
-    @await Html.PartialAsync("_SchoolSelectionScripts", Model)
+		function validateAge() {
+			let age = $("#User_Age").val();
+			let message = $("#ageMessage");
+			if (age != "" && ((age > selectedProgram.AgeMaximum && selectedProgram.AgeMaximum != null)
+				|| (age < selectedProgram.AgeMinimum && selectedProgram.AgeMinimum != null)))
+			{
+				let program = $.grep(programs, function(obj) {
+					return ((obj.AgeMaximum >= age || obj.AgeMaximum == null)
+							&& (obj.AgeMinimum <= age || obj.AgeMinimum == null));
+				})[0];
+				if (program != null)
+				{
+					message.removeClass('field-validation-valid field-validation-error text-danger');
+					message.addClass('text-primary');
+					$("#User_Age").removeClass("input-validation-error")
+					message.text("The program " + program.Name + " may be better suited for your age.")
+				}
+			}
+			else
+			{
+				message.text("");
+			}
+		}
+	</script>
+	@await Html.PartialAsync("_SchoolSelectionScripts", Model)
 }

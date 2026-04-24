@@ -32,10 +32,11 @@
                                             <input asp-for="Email"
                                                    class="form-control"
                                                    type="email"
+												   autocomplete="email"
                                                    autofocus />
                                             <button type="submit"
                                                     class="btn btn-outline-primary">
-                                                <span class="far fa-envelope fa-fw"></span>
+												<span class="far fa-envelope fa-fw" aria-hidden="true"></span>
                                                 @SharedLocalizer[GRA.Annotations.Home.RemindMe]
                                             </button>
                                         </div>
@@ -49,7 +50,7 @@
                                   method="post"
                                   role="form">
                                 <button type="submit" class="btn btn-outline-primary mx-auto">
-                                    <span class="fas fa-fw fa-calendar-alt"></span>
+									<span class="fas fa-fw fa-calendar-alt" aria-hidden="true"></span>
                                     @SharedLocalizer[GRA.Annotations.Home.CalendarReminder]
                                 </button>
                             </form>

@@ -1,112 +1,112 @@
 ﻿@model GRA.Controllers.ViewModel.Profile.HouseholdRegisterViewModel
 
 <form asp-controller="@ProfileController.Name"
-      asp-action="@nameof(ProfileController.RegisterHouseholdMember)"
-      method="post"
-      role="form">
-    <div class="row">
-        <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-            <div class="card">
-                <div class="card-header">
-                    <span class="fw-bold">
-                        @SharedLocalizer[GRA.Annotations.Info.GroupRegister,
-                                 Context.Items[GRA.Controllers.ItemKey.HouseholdTitle]]
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <input asp-for="RegisterId" type="hidden" />
-                            <input asp-for="Validate" value="true" type="hidden" />
-                            <div class="row">
-                                <div class="col-12">
-                                    <label asp-for="Username" class="col-form-label"></label>
-                                    <span id="Username-Icon" class="fas d-none"></span>
-                                    <input asp-for="Username" class="form-control" autofocus />
-                                    <span id="Username-Validation"
-                                          asp-validation-for="Username"
-                                          class="text-success"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <label asp-for="Password" class="col-form-label"></label>
-                                    <input asp-for="Password"
-                                           type="password"
-                                           class="form-control" />
-                                    <span asp-validation-for="Password" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <label asp-for="ConfirmPassword" class="col-form-label"></label>
-                                    <input asp-for="ConfirmPassword"
-                                           type="password"
-                                           class="form-control" />
-                                    <span asp-validation-for="ConfirmPassword"
-                                          class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <a asp-action="@nameof(ProfileController.Household)"
-                       class="btn btn-outline-secondary">
-                        Return to @Context.Items[GRA.Controllers.ItemKey.HouseholdTitle]
-                    </a>
-                    <button type="submit"
-                            id="Submit"
-                            name="Submit"
-                            value="Submit"
-                            class="btn btn-outline-primary ms-2"
-                            button-spinner>
-                        <span class="buttonText">
-                            @SharedLocalizer[GRA.Annotations.Info.GroupRegister,
-                                     Context.Items[GRA.Controllers.ItemKey.HouseholdTitle]]
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+	  asp-action="@nameof(ProfileController.RegisterHouseholdMember)"
+	  method="post"
+	  role="form">
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+			<div class="card">
+				<h1 class="card-header h4">
+					@SharedLocalizer[GRA.Annotations.Info.GroupRegister,
+					Context.Items[GRA.Controllers.ItemKey.HouseholdTitle]]
+				</h1>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<input asp-for="RegisterId" type="hidden" />
+							<input asp-for="Validate" value="true" type="hidden" />
+							<div class="row">
+								<div class="col-12">
+									<label asp-for="Username" class="col-form-label"></label>
+									<span id="Username-Icon" class="fas d-none"></span>
+									<input asp-for="Username" class="form-control" autofocus autocomplete="username" />
+									<span id="Username-Validation"
+										  asp-validation-for="Username"
+										  class="text-success"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<label asp-for="Password" class="col-form-label"></label>
+									<input asp-for="Password"
+										   type="password"
+										   class="form-control"
+										   autocomplete="new-password" />
+									<span asp-validation-for="Password" class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<label asp-for="ConfirmPassword" class="col-form-label"></label>
+									<input asp-for="ConfirmPassword"
+										   type="password"
+										   class="form-control"
+										   autocomplete="new-password" />
+									<span asp-validation-for="ConfirmPassword"
+										  class="text-danger"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end bg-white">
+					<a asp-action="@nameof(ProfileController.Household)"
+					   class="btn btn-outline-secondary">
+						Return to @Context.Items[GRA.Controllers.ItemKey.HouseholdTitle]
+					</a>
+					<button type="submit"
+							id="Submit"
+							name="Submit"
+							value="Submit"
+							class="btn btn-outline-primary ms-2"
+							button-spinner>
+						<span class="buttonText">
+							@SharedLocalizer[GRA.Annotations.Info.GroupRegister,
+														Context.Items[GRA.Controllers.ItemKey.HouseholdTitle]]
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 @section scripts {
-    <script>
-        const usernameCheckUrl = "@Url.Action(nameof(GRA.Controllers.LookupController.UsernameInUse), LookupController.Name, new { Area = string.Empty })";
-        const usernameIcon = $("#Username-Icon");
-        const usernameField = $("#Username");
-        const usernameValidation = $("#Username-Validation");
+	<script>
+		const usernameCheckUrl = "@Url.Action(nameof(GRA.Controllers.LookupController.UsernameInUse), LookupController.Name, new { Area = string.Empty })";
+		const usernameIcon = $("#Username-Icon");
+		const usernameField = $("#Username");
+		const usernameValidation = $("#Username-Validation");
 
-        usernameField.on("blur", function () {
-            if ($(this).val().trim() != "" && !$(this).hasClass("input-validation-error")) {
-                $(this).val($(this).val().trim());
-                usernameIcon.addClass("fa-spinner fa-spin")
-                    .removeClass("d-none fa-times-circle fa-check-circle text-success text-danger");
-                $.post(usernameCheckUrl, { username: $(this).val() }, function (response) {
-                    if (response) {
-                        $(this).removeClass("valid");
-                        $(this).addClass("input-validation-error");
-                        usernameValidation.removeClass("field-validation-valid text-success")
-                            .addClass("field-validation-error")
-                            .text("Someone has already chosen that username.");
-                        usernameIcon.removeClass("fa-spinner fa-spin")
-                            .addClass("fa-times-circle text-danger");
-                    }
-                    else {
-                        usernameValidation.removeClass("field-validation-valid")
-                            .addClass("text-success")
-                            .text("The chosen username is available.");
-                        usernameIcon.removeClass("fa-spinner fa-spin")
-                            .addClass("fa-check-circle text-success");
-                    }
-                });
-            }
-        });
+		usernameField.on("blur", function () {
+			if ($(this).val().trim() != "" && !$(this).hasClass("input-validation-error")) {
+				$(this).val($(this).val().trim());
+				usernameIcon.addClass("fa-spinner fa-spin")
+					.removeClass("d-none fa-times-circle fa-check-circle text-success text-danger");
+				$.post(usernameCheckUrl, { username: $(this).val() }, function (response) {
+					if (response) {
+						$(this).removeClass("valid");
+						$(this).addClass("input-validation-error");
+						usernameValidation.removeClass("field-validation-valid text-success")
+							.addClass("field-validation-error")
+							.text("Someone has already chosen that username.");
+						usernameIcon.removeClass("fa-spinner fa-spin")
+							.addClass("fa-times-circle text-danger");
+					}
+					else {
+						usernameValidation.removeClass("field-validation-valid")
+							.addClass("text-success")
+							.text("The chosen username is available.");
+						usernameIcon.removeClass("fa-spinner fa-spin")
+							.addClass("fa-check-circle text-success");
+					}
+				});
+			}
+		});
 
-        usernameField.on("keypress", function () {
-            usernameIcon.addClass("d-none");
-        });
-    </script>
+		usernameField.on("keypress", function () {
+			usernameIcon.addClass("d-none");
+		});
+	</script>
 }

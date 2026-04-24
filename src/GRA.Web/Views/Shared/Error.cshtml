@@ -1,45 +1,43 @@
 ﻿@{
-    ViewData[GRA.Controllers.ViewDataKey.Title] = "Error";
+	ViewData[GRA.Controllers.ViewDataKey.Title] = "Error";
 }
 
 @section styles {
-    <style>
-        .card-error-message p {
-            margin-bottom: 2rem;
-            line-height: 3rem;
-            font-size: larger;
-        }
-    </style>
+	<style>
+		.card-error-message p {
+			margin-bottom: 2rem;
+			line-height: 3rem;
+			font-size: larger;
+		}
+	</style>
 }
 
 <div class="row">
-    <div class="col-sm-8 offset-sm-2">
-        <div class="card">
-            <div class="card-header">
-                <span class="h3 text-danger"><strong>That didn't work right!</strong></span>
-            </div>
-            <div class="card-body card-error-message">
-                <p>
-                    Something seems to have gone wrong while loading the page you requested.
-                    Sorry about that! Please wait a little bit and try again.
-                </p>
-                <p>
-                    If you continue to have this problem, please
-                    <a asp-action="@nameof(MailController.Send)"
-                       asp-area=""
-                       asp-controller="@MailController.Name">send us a mail</a>
-                    and let us know what you were trying to do and where it went wrong!
-                </p>
-            </div>
-            <div class="card-footer">
-                <a asp-action="@nameof(HomeController.Index)"
-                   asp-area=""
-                   asp-controller="@HomeController.Name"
-                   class="btn btn-lg btn-outline-success">
-                    <span class="fas fa-home fa-fw"></span>
-                    Home
-                </a>
-            </div>
-        </div>
-    </div>
+	<div class="col-sm-8 offset-sm-2">
+		<div class="card">
+			<h1 class="card-header h3 text-danger"><strong>That didn't work right!</strong></h1>
+			<div class="card-body card-error-message">
+				<p>
+					Something seems to have gone wrong while loading the page you requested.
+					Sorry about that! Please wait a little bit and try again.
+				</p>
+				<p>
+					If you continue to have this problem, please
+					<a asp-action="@nameof(MailController.Send)"
+					   asp-area=""
+					   asp-controller="@MailController.Name">send us a mail</a>
+					and let us know what you were trying to do and where it went wrong!
+				</p>
+			</div>
+			<div class="card-footer bg-white">
+				<a asp-action="@nameof(HomeController.Index)"
+				   asp-area=""
+				   asp-controller="@HomeController.Name"
+				   class="btn btn-lg btn-outline-success">
+					<span class="fas fa-home fa-fw" aria-hidden="true"></span>
+					Home
+				</a>
+			</div>
+		</div>
+	</div>
 </div>
