@@ -42,6 +42,7 @@
         public const string CouldNotCreate = "Could not create {0}: {1}";
         public const string CouldNotRemove = "Could not remove {0}: {1}";
         public const string CouldNotUpdate = "Could not update {0}: {1}.";
+        public const string CustomizeYourAvatar = "Customize your avatar";
         public const string DateAtTime = "{0} at {1}";
         public const string Delete = "Delete";
         public const string DeleteMail = "Are you sure you wish to delete this mail: {0}";
@@ -61,10 +62,16 @@
         public const string Events = "Events";
         public const string Explore = "Explore {0}";
         public const string Family = "Family";
+        public const string FavoriteChallenge = "Favorite {0}";
+        public const string FavoriteEvent = "Favorite {0} at {1}";
         public const string FeaturedChallengeGroups = "Featured Challenge Groups";
         public const string Find = "Find";
         public const string FreeBookCode = "Free book code";
         public const string FreeBookCongratulations = "Congratulations, you've earned a free book!";
+        public const string GoFirstPage = "Go to first page.";
+        public const string GoLastPage = "Go to last page.";
+        public const string GoNextPage = "Go to next page.";
+        public const string GoPreviousPage = "Go to previous page.";
         public const string Group = "Group";
         public const string History = "History";
         public const string Joined = "Joined {0}!";
@@ -106,6 +113,7 @@
         public const string SecretCodeApplied = "Secret code applied!";
         public const string SeeItemsUnlocked = "See the items you unlocked.";
         public const string SelectABundle = "Select a Bundle";
+        public const string SelectAll = "Select all";
         public const string SelectedItem = "Selected item";
         public const string SelectedItems = "Selected items";
         public const string SendMail = "Send Mail";
@@ -115,6 +123,7 @@
         public const string SignedInAs = "You are now signed in as {0}.";
         public const string SignInForStreams = "Sign in to access streaming programs!";
         public const string SignInToStream = "Sign in to stream!";
+        public const string SkipToMainContent = "Skip to main content";
         public const string Status = "Status";
         public const string Stream = "Stream";
         public const string StreamingEnds = "Streaming ends: {0}";
@@ -123,6 +132,7 @@
         public const string StreamStarts = "Stream starts";
         public const string Subject = "Subject: {0}";
         public const string SwitchTo = "Switch To";
+        public const string ToggleZoom = "Toggle zoom";
         public const string TotalPoints = "Total Points";
         public const string Unsubscribed = "You are now unsubscribed and will not receive any more emails from {0}.";
         public const string UpdatedItem = "Updated: {0}";

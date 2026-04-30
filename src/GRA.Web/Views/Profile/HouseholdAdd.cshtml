@@ -1,232 +1,240 @@
 ﻿@model GRA.Controllers.ViewModel.Profile.HouseholdAddViewModel
 
 <form asp-controller="@ProfileController.Name"
-      asp-action="@nameof(ProfileController.AddHouseholdMember)"
-      method="post"
-      role="form">
-    <div class="row">
-        <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-            <div class="card">
-                <div class="card-header">
-                    <span class="fw-bold">
-                        @SharedLocalizer[GRA.Annotations.Info.GroupRegister,
-                        SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <label asp-for="User.FirstName" class="col-form-label"></label>
-                                    <span class="text-danger fas fa-asterisk fa-fw"></span>
-                                    <input asp-for="User.FirstName" class="form-control" />
-                                    <span asp-validation-for="User.FirstName"
-                                          class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <label asp-for="User.LastName" class="col-form-label"></label>
-                                    <input asp-for="User.LastName" class="form-control" />
-                                    <span asp-validation-for="User.LastName"
-                                          class="text-danger"></span>
-                                </div>
-                            </div>
-                            @if (Model.RequirePostalCode)
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="User.PostalCode"
-                                               class="col-form-label"></label>
-                                        <input asp-for="User.PostalCode" class="form-control" />
-                                        <span asp-validation-for="User.PostalCode"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <label asp-for="User.Email" class="col-form-label"></label>
-                                    @if (!string.IsNullOrEmpty(Model.EmailDataValRequired))
-                                    {
-                                        <span class="text-danger fas fa-asterisk fa-fw"></span>
-                                    }
-                                    <input add-data-val-required="@Model.EmailDataValRequired"
-                                           asp-for="User.Email"
-                                           class="form-control"
-                                           type="email" />
-                                    <span asp-validation-for="User.Email"
-                                          class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <label asp-for="User.PhoneNumber"
-                                           class="col-form-label"></label>
-                                    <input asp-for="User.PhoneNumber"
-                                           class="form-control"
-                                           type="tel" />
-                                    <span asp-validation-for="User.PhoneNumber"
-                                          class="text-danger"></span>
-                                </div>
-                            </div>
-                            @if (Model.SystemList.Count() > 1)
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="User.SystemId"
-                                               class="col-form-label"></label>
-                                        <select asp-for="User.SystemId"
-                                                asp-items="Model.SystemList"
-                                                class="form-select"></select>
-                                        <span asp-validation-for="User.SystemId"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <input asp-for="User.SystemId" type="hidden" />
-                            }
-                            @if (Model.SystemList.Count() > 1 || Model.BranchList.Count() > 1)
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="User.BranchId"
-                                               class="col-form-label"></label>
-                                        <select asp-for="User.BranchId"
-                                                asp-items="Model.BranchList"
-                                                class="form-select"></select>
-                                        <span asp-validation-for="User.BranchId"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <input asp-for="User.BranchId" type="hidden" />
-                            }
-                            @if (Model.ProgramList.Count() > 1)
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="User.ProgramId"
-                                               class="col-form-label"></label>
-                                        <span class="text-danger fas fa-asterisk fa-fw"></span>
-                                        <select asp-for="User.ProgramId"
-                                                asp-items="Model.ProgramList"
-                                                class="form-select">
-                                            <option value="-1"></option>
-                                        </select>
-                                        <span asp-validation-for="User.ProgramId"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <input asp-for="User.ProgramId" type="hidden" />
-                            }
-                            <div id="ageField"
-                                 class="row mb-2 @(Model.ShowAge ? "" : "d-none")">
-                                <div class="col-12">
-                                    <label asp-for="User.Age" class="col-form-label"></label>
-                                    <input asp-for="User.Age" class="form-control" type="text" />
-                                    <span id="ageMessage"
-                                          asp-validation-for="User.Age"
-                                          class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div id="schoolFields" class="@(Model.ShowSchool ? "" : "d-none")">
-                                @await Html.PartialAsync("_SchoolSelectionPartial", Model)
-                            </div>
-                            @if (Model?.AskFirstTime?.Count() > 1)
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="IsFirstTime" class="col-form-label"></label>
-                                        <span class="text-danger fas fa-asterisk fa-fw"></span>
-                                        <select asp-for="IsFirstTime"
-                                                asp-items="Model.AskFirstTime"
-                                                class="form-select"></select>
-                                        <span asp-validation-for="IsFirstTime"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            @if (Model.AskEmailSubscription?.Count() > 1)
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="EmailSubscriptionRequested"
-                                               class="col-form-label">@Model.AskEmailSubscriptionText</label>
-                                        <span class="text-danger fas fa-asterisk fa-fw"></span>
-                                        <select asp-for="EmailSubscriptionRequested"
-                                                asp-items="Model.AskEmailSubscription"
-                                                class="form-select"></select>
-                                        <span asp-validation-for="EmailSubscriptionRequested"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            @if (!string.IsNullOrWhiteSpace(Model.TranslationDescriptionPastTense))
-                            {
-                                <div class="row mb-2">
-                                    <div class="col-12">
-                                        <label asp-for="User.DailyPersonalGoal"
-                                               class="col-form-label"></label>
-                                        <div>
-                                            I will @Model.TranslationDescriptionPastTense
-                                            <input asp-for="User.DailyPersonalGoal"
-                                                   class="form-control"
-                                                   style="display:inline-block; width:75px;" />
-                                            @Model.ActivityDescriptionPlural a day
-                                        </div>
-                                        <span asp-validation-for="User.DailyPersonalGoal"
-                                              class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                            @if (Model.AskPersonalPointGoal)
-                            {
-                                <div class="row mb-3">
-                                    <div class="col-12">
-                                        <label asp-for="User.PersonalPointGoal" class="col-form-label"></label>
-                                        <span class="fas fa-info-circle"
-                                              data-bs-toggle="tooltip"
-                                              title="@SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalDescription, Model.MinimumPersonalPointGoal]"></span>
-                                        <div>
-                                            @SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalLabel]
-                                            <input asp-for="User.PersonalPointGoal"
-                                                   max="@Model.MaximumPersonalPointGoal"
-                                                   min="@Model.MinimumPersonalPointGoal"
-                                                   class="form-control"
-                                                   style="display:inline-block; width:100px;" />
-                                        </div>
-                                        <span asp-validation-for="User.PersonalPointGoal" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <a asp-action="Household" class="btn btn-outline-secondary">
-                        @SharedLocalizer[GRA.Annotations.Interface.BackTo,
-                        SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
-                    </a>
-                    <button type="submit"
-                            id="Submit"
-                            name="Submit"
-                            value="Submit"
-                            class="btn btn-outline-primary ms-2"
-                            button-spinner>
-                        <span class="buttonText">
-                            @SharedLocalizer[GRA.Annotations.Info.GroupRegister,
-                                                        SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
-                        </span>
-                    </button>
+	  asp-action="@nameof(ProfileController.AddHouseholdMember)"
+	  method="post"
+	  role="form">
+	<div class="row">
+		<div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+			<div class="card">
+				<h1 class="card-header h4">
+					@SharedLocalizer[GRA.Annotations.Info.GroupRegister,
+					SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
+				</h1>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<div class="row mb-2">
+								<div class="col-12">
+									<label asp-for="User.FirstName" class="col-form-label"></label>
+									<span class="text-danger fas fa-asterisk fa-fw"></span>
+									<input asp-for="User.FirstName" class="form-control" autocomplete="given-name" />
+									<span asp-validation-for="User.FirstName"
+										  class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-12">
+									<label asp-for="User.LastName" class="col-form-label"></label>
+									<input asp-for="User.LastName" class="form-control" autocomplete="family-name" />
+									<span asp-validation-for="User.LastName"
+										  class="text-danger"></span>
+								</div>
+							</div>
+							@if (Model.RequirePostalCode)
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="User.PostalCode"
+											   class="col-form-label"></label>
+										<input asp-for="User.PostalCode" class="form-control" autocomplete="postal-code" />
+										<span asp-validation-for="User.PostalCode"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							<div class="row mb-2">
+								<div class="col-12">
+									<label asp-for="User.Email" class="col-form-label"></label>
+									@if (!string.IsNullOrEmpty(Model.EmailDataValRequired))
+									{
+										<span class="text-danger fas fa-asterisk fa-fw"></span>
+									}
+									<input add-data-val-required="@Model.EmailDataValRequired"
+										   asp-for="User.Email"
+										   class="form-control"
+										   type="email"
+										   autocomplete="email" />
+									<span asp-validation-for="User.Email"
+										  class="text-danger"></span>
+								</div>
+							</div>
+							<div class="row mb-2">
+								<div class="col-12">
+									<label asp-for="User.PhoneNumber"
+										   class="col-form-label"></label>
+									<input asp-for="User.PhoneNumber"
+										   class="form-control"
+										   type="text"
+										   autocomplete="tel-national" />
+									<span asp-validation-for="User.PhoneNumber"
+										  class="text-danger"></span>
+								</div>
+							</div>
+							@if (Model.SystemList.Count() > 1)
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="User.SystemId"
+											   class="col-form-label"></label>
+										<select asp-for="User.SystemId"
+												asp-items="Model.SystemList"
+												class="form-select"
+												autocomplete="off"></select>
+										<span asp-validation-for="User.SystemId"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							else
+							{
+								<input asp-for="User.SystemId" type="hidden" />
+							}
+							@if (Model.SystemList.Count() > 1 || Model.BranchList.Count() > 1)
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="User.BranchId"
+											   class="col-form-label"></label>
+										<select asp-for="User.BranchId"
+												asp-items="Model.BranchList"
+												class="form-select"
+												autocomplete="off"></select>
+										<span asp-validation-for="User.BranchId"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							else
+							{
+								<input asp-for="User.BranchId" type="hidden" />
+							}
+							@if (Model.ProgramList.Count() > 1)
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="User.ProgramId"
+											   class="col-form-label"></label>
+										<span class="text-danger fas fa-asterisk fa-fw"></span>
+										<select asp-for="User.ProgramId"
+												asp-items="Model.ProgramList"
+												class="form-select"
+												autocomplete="off">
+											<option value="-1"></option>
+										</select>
+										<span asp-validation-for="User.ProgramId"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							else
+							{
+								<input asp-for="User.ProgramId" type="hidden" />
+							}
+							<div id="ageField"
+								 class="row mb-2 @(Model.ShowAge ? "" : "d-none")">
+								<div class="col-12">
+									<label asp-for="User.Age" class="col-form-label"></label>
+									<input asp-for="User.Age" class="form-control" type="text" autocomplete="off" />
+									<span id="ageMessage"
+										  asp-validation-for="User.Age"
+										  class="text-danger"></span>
+								</div>
+							</div>
+							<div id="schoolFields" class="@(Model.ShowSchool ? "" : "d-none")">
+								@await Html.PartialAsync("_SchoolSelectionPartial", Model)
+							</div>
+							@if (Model?.AskFirstTime?.Count() > 1)
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="IsFirstTime" class="col-form-label"></label>
+										<span class="text-danger fas fa-asterisk fa-fw"></span>
+										<select asp-for="IsFirstTime"
+												asp-items="Model.AskFirstTime"
+												class="form-select"
+												autocomplete="off"></select>
+										<span asp-validation-for="IsFirstTime"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							@if (Model.AskEmailSubscription?.Count() > 1)
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="EmailSubscriptionRequested"
+											   class="col-form-label">@Model.AskEmailSubscriptionText</label>
+										<span class="text-danger fas fa-asterisk fa-fw"></span>
+										<select asp-for="EmailSubscriptionRequested"
+												asp-items="Model.AskEmailSubscription"
+												class="form-select"
+												autocomplete="off"></select>
+										<span asp-validation-for="EmailSubscriptionRequested"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							@if (!string.IsNullOrWhiteSpace(Model.TranslationDescriptionPastTense))
+							{
+								<div class="row mb-2">
+									<div class="col-12">
+										<label asp-for="User.DailyPersonalGoal"
+											   class="col-form-label"></label>
+										<div>
+											I will @Model.TranslationDescriptionPastTense
+											<input asp-for="User.DailyPersonalGoal"
+												   class="form-control"
+												   style="display:inline-block; width:75px;" />
+											@Model.ActivityDescriptionPlural a day
+										</div>
+										<span asp-validation-for="User.DailyPersonalGoal"
+											  class="text-danger"></span>
+									</div>
+								</div>
+							}
+							@if (Model.AskPersonalPointGoal)
+							{
+								<div class="row mb-3">
+									<div class="col-12">
+										<label asp-for="User.PersonalPointGoal" class="col-form-label"></label>
+										<span class="fas fa-info-circle"
+											  title="@SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalDescription, Model.MinimumPersonalPointGoal]"
+											  data-bs-custom-class="wide-tooltip"
+											  data-bs-toggle="tooltip"
+											  role="tooltip"
+											  tabindex="0"></span>
+										<div>
+											@SharedLocalizer[GRA.Annotations.Interface.PersonalPointGoalLabel]
+											<input asp-for="User.PersonalPointGoal"
+												   max="@Model.MaximumPersonalPointGoal"
+												   min="@Model.MinimumPersonalPointGoal"
+												   class="form-control"
+												   style="display:inline-block; width:100px;" />
+										</div>
+										<span asp-validation-for="User.PersonalPointGoal" class="text-danger"></span>
+									</div>
+								</div>
+							}
+						</div>
+					</div>
+				</div>
+				<div class="card-footer d-flex justify-content-end bg-white">
+					<a asp-action="Household" class="btn btn-outline-secondary">
+						@SharedLocalizer[GRA.Annotations.Interface.BackTo,
+						SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
+					</a>
+					<button type="submit"
+							id="Submit"
+							name="Submit"
+							value="Submit"
+							class="btn btn-outline-primary ms-2"
+							button-spinner>
+						<span class="buttonText">
+							@SharedLocalizer[GRA.Annotations.Info.GroupRegister,
+														SharedLocalizer[Context.Items[GRA.Controllers.ItemKey.HouseholdTitle].ToString()]]
+						</span>
+					</button>
 
 				</div>
 			</div>
