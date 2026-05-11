@@ -45,25 +45,25 @@
 								 class="@($"image{layer.Id}") avatar-layer@(string.IsNullOrWhiteSpace(layer.FilePath) ? " d-none" : "")"
 								 style="z-index: @(layer.Position + 1);"
 								 alt="@layer.AltText"
-								 data-layer="@layer.Id"
-								 data-item="@layer.SelectedItem" />
-						}
-					</div>
-				</div>
-			</div>
-			<div class="col-12 col-md-7">
-				<div class="row">
-					<div class="col-12 text-center" id="layer-container">
-						@if (Model.LayerGroupings.Count > 0)
-						{
-							foreach (var layerGroup in Model.LayerGroupings)
-							{
-								<div style="display: inline-block;" class="@(layerGroup.Count == 1 ? "d-none" : "")">
-									@foreach (var layer in layerGroup)
-									{
-										<img src="~/@layer.Icon"
-											 id="@($"selector{layer.Id}")"
-											 class="avatar-layer-selector@(Model.DefaultLayer == layer.Id ? " selected" : "")"
+                                 data-layer="@layer.Id"
+                                 data-item="@layer.SelectedItem" />
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                <div class="row">
+                    <div class="col-12 text-center" id="layer-container">
+                        @if (Model.LayerGroupings.Count > 0)
+                        {
+                            foreach (var layerGroup in Model.LayerGroupings)
+                            {
+                                <div style="display: inline-block;" class="@(layerGroup.Count == 1 ? "d-none" : "")">
+                                    @foreach (var layer in layerGroup)
+                                    {
+                                        <img src="~/@layer.IconLink"
+                                             id="@($"selector{layer.Id}")"
+                                             class="avatar-layer-selector@(Model.DefaultLayer == layer.Id ? " selected" : "")"
 											 alt="@SharedLocalizer[GRA.Annotations.Interface.AvatarLayerAltText, layer.Name]"
 											 data-layer="@layer.Id"
 											 data-name="@layer.Name"
