@@ -76,7 +76,9 @@
 											 data-alt="@layer.AltText"
 											 data-zoomscale="@layer.ZoomScale"
 											 data-zoomyoffset="@layer.ZoomYOffset"
-											 data-colorrows="@(layer.ShowColorSelector ? (!layer.ShowItemSelector ? 5 : 2) : 0)" />
+											 data-colorrows="@(layer.ShowColorSelector ? (!layer.ShowItemSelector ? 5 : 2) : 0)"
+                                             role="button"
+											 tabindex="0" />
 									}
 								</div>
 							}
@@ -388,12 +390,15 @@
 		});
 
 		// When a layer tab is selected
-		$(".avatar-layer-selector").on("click", function () {
-			let layer = $(this);
-			let currentLayer = CurrentSelectedLayer();
-			if (currentLayer == undefined || layer.data("layer") != currentLayer.data("layer")) {
-				currentLayer.removeClass("selected");
-				SetLayer(layer);
+		$(".avatar-layer-selector").on("click keydown", function (e) {
+			if (e.type === "click" || e.code === "Space" || e.key === "Enter") {
+				e.preventDefault();
+				let layer = $(this);
+				let currentLayer = CurrentSelectedLayer();
+				if (currentLayer == undefined || layer.data("layer") != currentLayer.data("layer")) {
+					currentLayer.removeClass("selected");
+					SetLayer(layer);
+				}
 			}
 		});
 

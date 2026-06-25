@@ -30,5 +30,6 @@ namespace GRA.Domain.Repository
         Task AddTextsAsync(IEnumerable<AvatarItemText> texts);
         void RemoveTexts(IEnumerable<AvatarItemText> texts);
         void UpdateTexts(IEnumerable<AvatarItemText> texts);
+        Task<string> GetAltTextByLanguageAsync(int itemId, int languageId);
     }
 }

@@ -62,6 +62,15 @@ namespace GRA.Data.Repository
             }
         }
 
+        public async Task<string> GetAltTextByLanguageAsync(int itemId, int languageId)
+        {
+            return await _context.AvatarItemTexts
+                .AsNoTracking()
+                .Where(_ => _.AvatarItemId == itemId && _.LanguageId == languageId)
+                .Select(_ => _.AltText)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<List<AvatarItem>> GetBundleItemsAsync(int bundleId)
         {
             return await _context.AvatarBundleItems
@@ -394,7 +403,7 @@ namespace GRA.Data.Repository
             {
                 if (filter.LanguageId.HasValue)
                 {
-                    items = items.Where(_ => 
+                    items = items.Where(_ =>
                         !_.Texts.Any(_ => _.LanguageId == filter.LanguageId.Value));
                 }
                 else

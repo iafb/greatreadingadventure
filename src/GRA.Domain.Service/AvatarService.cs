@@ -378,6 +378,9 @@ namespace GRA.Domain.Service
                                 _.AvatarLayerId == layer.Id);
                             if (layerSelection != null)
                             {
+                                layer.AltText = await _avatarItemRepository
+                                    .GetAltTextByLanguageAsync(layerSelection.Id, 
+                                        currentLanguageId);
                                 layer.SelectedItem = layerSelection.Id;
                             }
                         }
