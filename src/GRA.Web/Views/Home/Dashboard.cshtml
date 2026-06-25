@@ -75,7 +75,7 @@ else if (Model.HasOrderStatus)
 									<img src="~/@layer.FilenameLink"
 										 style="z-index: @(layer.LayerPosition + 1)"
 										 class="avatar-layer-dashboard"
-										 alt="@layer.AltText"/>
+										 alt="@layer.AltText" />
 								}
 							</div>
 						}
@@ -473,8 +473,8 @@ else if (Model.HasOrderStatus)
 					{
 						<li class="list-group-item">
 							<a href="@Url.Action(nameof(EventsController.Stream),
-																																																																					EventsController.Name,
-																																																																					new { id = stream.Id })">
+																																																																									EventsController.Name,
+																																																																									new { id = stream.Id })">
 						@stream.Name
 					</a>
 					@if (stream.EndDate.HasValue)
@@ -536,8 +536,9 @@ else if (Model.HasOrderStatus)
 								   data-bs-target="#graCarouselModal"
 								   data-itemid="@item.Id"
 								   data-title="@item.Title"
-								   data-img="@item.ImageUrl">
-									<img src="@item.ImageUrl" />
+								   data-img="@item.ImageUrl"
+								   data-alttext="@item.AltText">
+									<img src="@item.ImageUrl" alt="@item.AltText" />
 									<p>@item.Title</p>
 								</a>
 							</div>
@@ -677,6 +678,7 @@ else if (Model.HasOrderStatus)
 				let id = $(e.relatedTarget).data("itemid");
 				let title = $(e.relatedTarget).data("title");
 				let img = $(e.relatedTarget).data("img");
+				let altText = $(e.relatedTarget).data("alttext");
 
 				console.info("Item id: %o title: %o", id, title);
 
@@ -697,6 +699,7 @@ else if (Model.HasOrderStatus)
 
 				$("#graCarouselModalHeader").text(title);
 				$("#graCarouselModalImage").attr("src", img);
+				$("#graCarouselModalImage").attr("alt", altText);
 			});
 			if (typeof gtag !== 'undefined') {
 				$(".gra-carousel").on("beforeChange", function (e, s, c, n) {

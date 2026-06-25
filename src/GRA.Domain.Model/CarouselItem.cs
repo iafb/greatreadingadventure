@@ -5,6 +5,12 @@ namespace GRA.Domain.Model
     public class CarouselItem : Abstract.BaseDomainEntity
     {
         [Required]
+        [MaxLength(500)]
+        [Display(Name = "Image alternative text",
+            Description = "How should this image be described to someone who can't see it?")]
+        public string AltText { get; set; }
+
+        [Required]
         public int CarouselId { get; set; }
 
         [Required]

@@ -39,6 +39,7 @@ namespace GRA.Data.Repository
                 .OrderBy(_ => _.SortOrder)
                 .Select(_ => new CarouselItem
                 {
+                    AltText = _.AltText,
                     CarouselId = _.CarouselId,
                     CreatedAt = _.CreatedAt,
                     CreatedBy = _.CreatedBy,

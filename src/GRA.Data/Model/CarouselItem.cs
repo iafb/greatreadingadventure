@@ -5,6 +5,10 @@ namespace GRA.Data.Model
     public class CarouselItem : Abstract.BaseDbEntity
     {
         [Required]
+        [MaxLength(500)]
+        public string AltText { get; set; }
+
+        [Required]
         public int CarouselId { get; set; }
 
         [Required]

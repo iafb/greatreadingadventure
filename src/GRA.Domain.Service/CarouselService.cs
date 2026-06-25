@@ -121,6 +121,7 @@ namespace GRA.Domain.Service
             VerifyManagementPermission();
             item.Title = item.Title.Trim();
             item.ImageUrl = item.ImageUrl.Trim();
+            item.AltText = item.AltText.Trim();
             item.Description = item.Description.Trim();
             return await _carouselItemRepository.AddSaveAsync(GetClaimId(ClaimType.UserId), item);
         }
@@ -138,6 +139,7 @@ namespace GRA.Domain.Service
 
             item.Title = item.Title.Trim();
             item.ImageUrl = item.ImageUrl.Trim();
+            item.AltText = item.AltText.Trim();
             item.Description = item.Description.Trim();
 
             return await _carouselItemRepository
